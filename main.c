@@ -3,51 +3,51 @@
 //main
 int main(void)
 {
-	initial();//³õÊ¼»¯ÓÎÏ·
+	initial();//åˆå§‹åŒ–æ¸¸æˆ
 	while (1)
 	{
 		move();
 	}
 }
 
-void initial(void)//³õÊ¼»¯ÓÎÏ·
+void initial(void)//åˆå§‹åŒ–æ¸¸æˆ
 {
 #ifndef WIN32
-	printf("\033[0m\033[37;1m");//ÉèÖÃÑÕÉ«
+	printf("\033[0m\033[37;1m");//è®¾ç½®é¢œè‰²
 #else
-	system("title Îå×ÓÆå");//ÉèÖÃ±êÌâ
-	system("mode con cols=63 lines=34");//ÉèÖÃ´°¿Ú´óÐ¡
-	system("color E0");//ÉèÖÃÑÕÉ«
+	system("title äº”å­æ£‹");//è®¾ç½®æ ‡é¢˜
+	system("mode con cols=63 lines=34");//è®¾ç½®çª—å£å¤§å°
+	system("color E0");//è®¾ç½®é¢œè‰²
 #endif
 	cls;
 	xingqimodel=0;
-	//³õÊ¼»¯ÐÐÆå¼ÇÂ¼Ïà¹Ø²¿·Ö
+	//åˆå§‹åŒ–è¡Œæ£‹è®°å½•ç›¸å…³éƒ¨åˆ†
 	head = newrecord();
 	renow = newrecord();
 	reback = newrecord();
 	head->next = renow;
 	renow->back = head;
 	reback = renow->back;
-	Round = 1;//µÚÒ»»ØºÏ
-	modelchoose();//Ä£Ê½Ñ¡Ôñ
+	Round = 1;//ç¬¬ä¸€å›žåˆ
+	modelchoose();//æ¨¡å¼é€‰æ‹©
 
 	cls;
-	if (model[0] == 1)//ÈôÎªÐÂÓÎÏ·
+	if (model[0] == 1)//è‹¥ä¸ºæ–°æ¸¸æˆ
 	{
-		getfilename();//»ñÈ¡ÎÄ¼þÃû
-		if (model[1] == 2 && model[2] == 2)	{ Addrecord(7, 7); Round++; printboard(); }//ÈôÎªÈË»úÄ£Ê½ÇÒÍæ¼ÒÖ´°×,Ö±½Ó´òÓ¡ÆåÅÌ
-		else	kaiju();//·ñÔò½øÈëÖ¸¶¨¿ª¾Ö
+		getfilename();//èŽ·å–æ–‡ä»¶å
+		if (model[1] == 2 && model[2] == 2)	{ Addrecord(7, 7); Round++; printboard(); }//è‹¥ä¸ºäººæœºæ¨¡å¼ä¸”çŽ©å®¶æ‰§ç™½,ç›´æŽ¥æ‰“å°æ£‹ç›˜
+		else	kaiju();//å¦åˆ™è¿›å…¥æŒ‡å®šå¼€å±€
 	}
-	else if (model[0] == 2)//Èô¼ÓÔØÓÎÏ·,½øÈë¶ÁÆåÆ×Ä£Ê½
+	else if (model[0] == 2)//è‹¥åŠ è½½æ¸¸æˆ,è¿›å…¥è¯»æ£‹è°±æ¨¡å¼
 		readqipu();
 	if (model[1] != 3)
 		xingqimodel = 1;
-	printf("¿ªÊ¼ÓÎÏ·");
+	printf("å¼€å§‹æ¸¸æˆ");
 	
 }
 
 #ifndef WIN32
-int kbhit(void)//µ±ÓÐ¼ü°´ÏÂ·µ»Ø1,·ñÔò·µ»Ø0,¼ì²âÊÇ·ñÓÐ°´¼ü
+int kbhit(void)//å½“æœ‰é”®æŒ‰ä¸‹è¿”å›ž1,å¦åˆ™è¿”å›ž0,æ£€æµ‹æ˜¯å¦æœ‰æŒ‰é”®
 {
 	struct termios oldt, newt;
 	int ch;
@@ -69,10 +69,10 @@ int kbhit(void)//µ±ÓÐ¼ü°´ÏÂ·µ»Ø1,·ñÔò·µ»Ø0,¼ì²âÊÇ·ñÓÐ°´¼ü
 	return 0;
 }
 
-int getch(void) {  //ÀàËÆgetchar,´ÓÊäÈë¶ÁÒ»¸ö×Ö·û,²»ÓÃ°´»Ø³µ,ÇÒ²»»áÏÔÊ¾ÔÚÆÁÄ»ÉÏ
-	//±Ègetchar,scanf¸ü¼°Ê±,¿ÉÒÔ°´ÏÂ¾Í×ö³ö·´Ó¦,ÇÒ²»ÊäÈëÒ²²»µ¢Îó³ÌÐòÔËÐÐ
-	//ÎÒÓÃÓÚ²Ù×÷¿ØÖÆ,Èç»Ø·Å¿ØÖÆ,»ÚÆåµÈ,ÆäËûËùÓÐÊäÈëÈÎÎñÒ²¼¸ºõÓÉËü³Ðµ£
-	//ºó¼ÓÅÐ¶Ï,Èç¹ûÊäÈë·ûºÏÒªÇó,ÔòprintfÔÚÆÁÄ»,ÇÒ½øÈëÏÂÒ»²½,·ñÔò²»ÏÔÊ¾,¼ÌÐøÊäÈëµ½·ûºÏÒªÇóÎªÖ¹
+int getch(void) {  //ç±»ä¼¼getchar,ä»Žè¾“å…¥è¯»ä¸€ä¸ªå­—ç¬¦,ä¸ç”¨æŒ‰å›žè½¦,ä¸”ä¸ä¼šæ˜¾ç¤ºåœ¨å±å¹•ä¸Š
+	//æ¯”getchar,scanfæ›´åŠæ—¶,å¯ä»¥æŒ‰ä¸‹å°±åšå‡ºååº”,ä¸”ä¸è¾“å…¥ä¹Ÿä¸è€½è¯¯ç¨‹åºè¿è¡Œ
+	//æˆ‘ç”¨äºŽæ“ä½œæŽ§åˆ¶,å¦‚å›žæ”¾æŽ§åˆ¶,æ‚”æ£‹ç­‰,å…¶ä»–æ‰€æœ‰è¾“å…¥ä»»åŠ¡ä¹Ÿå‡ ä¹Žç”±å®ƒæ‰¿æ‹…
+	//åŽåŠ åˆ¤æ–­,å¦‚æžœè¾“å…¥ç¬¦åˆè¦æ±‚,åˆ™printfåœ¨å±å¹•,ä¸”è¿›å…¥ä¸‹ä¸€æ­¥,å¦åˆ™ä¸æ˜¾ç¤º,ç»§ç»­è¾“å…¥åˆ°ç¬¦åˆè¦æ±‚ä¸ºæ­¢
 	struct termios tm, tm_old;
 	int fd = STDIN_FILENO, c;
 	if (tcgetattr(fd, &tm) < 0)
@@ -90,5 +90,5 @@ int getch(void) {  //ÀàËÆgetchar,´ÓÊäÈë¶ÁÒ»¸ö×Ö·û,²»ÓÃ°´»Ø³µ,ÇÒ²»»áÏÔÊ¾ÔÚÆÁÄ»ÉÏ
 	return c;
 }
 #endif
-//½áÊø
-//main½áÊø
+//ç»“æŸ
+//mainç»“æŸ

@@ -1,6 +1,6 @@
 #include "head/wzq.h"
 
-//Ö¸¶¨¿ª¾Ö²¿·Ö
+//æŒ‡å®šå¼€å±€éƒ¨åˆ†
 void kaiju(void)
 {
 	printboard();
@@ -14,20 +14,20 @@ void kaiju(void)
 	}
 #ifndef WIN32
 	printf("\n    ");
-	printf("ÊäÈë  z+i/d+Êı×Ö  Ö¸¶¨¿ª¾Ö");
+	printf("è¾“å…¥  z+i/d+æ•°å­—  æŒ‡å®šå¼€å±€");
 	printf("\n         ");
-	printf("°´»Ø³µ¼üÌø¹ı");
+	printf("æŒ‰å›è½¦é”®è·³è¿‡");
 #else
 	printf("\n                    ");
-	printf("ÊäÈëz+i/d+Êı×ÖÖ¸¶¨¿ª¾Ö");
+	printf("è¾“å…¥z+i/d+æ•°å­—æŒ‡å®šå¼€å±€");
 	printf("\n                        ");
-	printf("°´»Ø³µ¼üÌø¹ı");
+	printf("æŒ‰å›è½¦é”®è·³è¿‡");
 #endif
 	while (1)
 	{
 		if (kbhit())
 		{
-			//×ª»¯ÊäÈë
+			//è½¬åŒ–è¾“å…¥
 			if ((key1 = getch()) == 'z')
 			{
 				printboard();
@@ -37,16 +37,16 @@ void kaiju(void)
 				key3[1] = getchar() - '0';
 				if (key3[1] >= 0)
 					key3[0] = key3[0] * 10 + key3[1];
-				if (key3[0] > 13 || key3[0] < 1 || (key2 != 'i'&&key2 != 'd'))//Èô²»ÊÇÒªÇóµÄÊäÈë
+				if (key3[0] > 13 || key3[0] < 1 || (key2 != 'i'&&key2 != 'd'))//è‹¥ä¸æ˜¯è¦æ±‚çš„è¾“å…¥
 				{
 					printboard();
-					printf(" ÊäÈëÓĞÎó");
+					printf(" è¾“å…¥æœ‰è¯¯");
 #ifndef WIN32
 					_printn printf("          ");
 #else
 					_printn _printspace
 #endif
-					printf("°´»Ø³µÖØĞÂÊäÈë");
+					printf("æŒ‰å›è½¦é‡æ–°è¾“å…¥");
 #ifdef WIN32
 					while (getch() == '\r')
 #else
@@ -57,14 +57,14 @@ void kaiju(void)
 					}
 				}
 				if (key2 == 'i')
-					return ikaiju(key3[0]);//½øÈëĞ±Ö¸¿ª¾ÖµÄÑ¡Ôñ
+					return ikaiju(key3[0]);//è¿›å…¥æ–œæŒ‡å¼€å±€çš„é€‰æ‹©
 				if (key2 == 'd')
-					return dkaiju(key3[0]);//½øÈëÖ±Ö¸¿ª¾ÖµÄÑ¡Ôñ
+					return dkaiju(key3[0]);//è¿›å…¥ç›´æŒ‡å¼€å±€çš„é€‰æ‹©
 			}
 #ifdef WIN32
-			else if (key1 == '\r')//ÈôÍË³ö
+			else if (key1 == '\r')//è‹¥é€€å‡º
 #else
-			else if (key1 == '\n')//ÈôÍË³ö
+			else if (key1 == '\n')//è‹¥é€€å‡º
 #endif
 			{
 				printboard();
@@ -74,7 +74,7 @@ void kaiju(void)
 	}
 }
 
-void ikaiju(int a)//Ğ±Ö¸¿ª¾Ö
+void ikaiju(int a)//æ–œæŒ‡å¼€å±€
 {
 	Round = Round + 1;
 	board[7][7] = 1;
@@ -90,11 +90,11 @@ void ikaiju(int a)//Ğ±Ö¸¿ª¾Ö
 	else if (a = 13)
 		board[5][5] = 1;
 	printboard();
-	change();//½øÈëÈıÊÖ»¥»»
+	change();//è¿›å…¥ä¸‰æ‰‹äº’æ¢
 	printboard();
 }
 
-void dkaiju(int a)//Ö±Ö¸¿ª¾Ö
+void dkaiju(int a)//ç›´æŒ‡å¼€å±€
 {
 	Round = Round + 1;
 	board[7][7] = 1;
@@ -110,30 +110,30 @@ void dkaiju(int a)//Ö±Ö¸¿ª¾Ö
 	else if (a > 10 && a <= 13)
 		board[6 + (a - 10)][5] = 1;
 	printboard();
-	change();//½øÈëÈıÊÖ»¥»»
+	change();//è¿›å…¥ä¸‰æ‰‹äº’æ¢
 	printboard();
 
 }
 
-void change(void)//ÈıÊÖ»¥»»
+void change(void)//ä¸‰æ‰‹äº’æ¢
 {
 	char key[2];
 #ifndef WIN32
 	printf("\n          ");
-	printf("ÊäÈëhh½øĞĞ»¥»»");
+	printf("è¾“å…¥hhè¿›è¡Œäº’æ¢");
 	printf("\n           ");
-	printf("°´»Ø³µ¼üÌø¹ı");
+	printf("æŒ‰å›è½¦é”®è·³è¿‡");
 #else
 	printf("\n                         ");
-	printf("ÊäÈëhh½øĞĞ»¥»»");
+	printf("è¾“å…¥hhè¿›è¡Œäº’æ¢");
 	printf("\n                        ");
-	printf("°´»Ø³µ¼üÌø¹ı");
+	printf("æŒ‰å›è½¦é”®è·³è¿‡");
 #endif
 	while (1)
 	{
 		if (kbhit())
 		{
-			//×ª»»ÊäÈë
+			//è½¬æ¢è¾“å…¥
 			printboard();
 #ifdef WIN32
 			if ((key[0] = getch()) != '\r')
@@ -151,15 +151,15 @@ void change(void)//ÈıÊÖ»¥»»
 					printf("%c", key[1]);
 				else break;
 
-				if (key[0] == 'h'&&key[1] == 'h')//ÈôÊäÈëÁËhh
+				if (key[0] == 'h'&&key[1] == 'h')//è‹¥è¾“å…¥äº†hh
 				{
-					Round = Round + 1;//°×·½ÇĞ»»µ½ºÚ·½
+					Round = Round + 1;//ç™½æ–¹åˆ‡æ¢åˆ°é»‘æ–¹
 					break;
 				}
 			}
-			else//²»ºÏÒªÇóÔòÌø³ö
+			else//ä¸åˆè¦æ±‚åˆ™è·³å‡º
 				break;
 		}
 	}
 }
-//Ö¸¶¨¿ª¾Ö²¿·Ö½áÊø
+//æŒ‡å®šå¼€å±€éƒ¨åˆ†ç»“æŸ

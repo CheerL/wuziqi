@@ -1,26 +1,26 @@
 #include "head/wzq.h"
 
-//ÔËĞĞ²¿·Ö
-int turn(int r)//´Ó»ØºÏÊı·µ»ØÒ»¸öÖµÀ´¾ö¶¨ºÚ°×·½,ÓÃÓÚÂä×ÓµÈ
+//è¿è¡Œéƒ¨åˆ†
+int turn(int r)//ä»å›åˆæ•°è¿”å›ä¸€ä¸ªå€¼æ¥å†³å®šé»‘ç™½æ–¹,ç”¨äºè½å­ç­‰
 {
 	if (r % 2)
-		return 1;//ºÚ·½
+		return 1;//é»‘æ–¹
 	else
-		return 2;//°×·½
+		return 2;//ç™½æ–¹
 }
 
-void move()//Âä×Ó
+void move()//è½å­
 {
 	int c;
-	if (model[1] == 3)//»ú»ú¶ÔÕ½
+	if (model[1] == 3)//æœºæœºå¯¹æˆ˜
 	{
-		mainsuanfa();//µ÷ÓÃËã·¨µçÄÔÏÂÒ»²½Æå
-		win(cursor.x, cursor.y);//ÅĞ¶ÏÊ¤¸º
+		mainsuanfa();//è°ƒç”¨ç®—æ³•ç”µè„‘ä¸‹ä¸€æ­¥æ£‹
+		win(cursor.x, cursor.y);//åˆ¤æ–­èƒœè´Ÿ
 		printboard();
 #ifndef WIN32
-		printf("\n           °´»Ø³µ¼üÔİÍ£\n            °´ESCÍË³ö");
+		printf("\n           æŒ‰å›è½¦é”®æš‚åœ\n            æŒ‰ESCé€€å‡º");
 #else
-		printf("\n                        °´»Ø³µ¼üÔİÍ£\n                          °´ESCÍË³ö");
+		printf("\n                        æŒ‰å›è½¦é”®æš‚åœ\n                          æŒ‰ESCé€€å‡º");
 #endif
 		if (kbhit())
 		{
@@ -31,92 +31,92 @@ void move()//Âä×Ó
 #endif
 			{ 
 #ifndef WIN32
-				printf("\n         °´ÈÎÒâ¼ü»Øµ½ÓÎÏ·\n"); 
+				printf("\n         æŒ‰ä»»æ„é”®å›åˆ°æ¸¸æˆ\n"); 
 #else
 				cls;
 				printboard();
-				printf("\n                       °´ÈÎÒâ¼ü»Øµ½ÓÎÏ·\n");
+				printf("\n                       æŒ‰ä»»æ„é”®å›åˆ°æ¸¸æˆ\n");
 #endif
 				while (1)	{ if (getch() != 0) break; }
-			}//»Ø³µ
-			else if (c == 27) return replay();//ESCÖØĞÂÓÎÏ·
+			}//å›è½¦
+			else if (c == 27) return replay();//ESCé‡æ–°æ¸¸æˆ
 		}
 		
-		sleep(sleeptime);//ÔİÍ£
+		sleep(sleeptime);//æš‚åœ
 	}
 	else
 	{
 
 		int key1, key2, key3;
 		int num;
-		if (kbhit())//µ±ÓĞ°´¼ü
+		if (kbhit())//å½“æœ‰æŒ‰é”®
 		{
 			printboard();
 			printf(" ");
 			key1 = getch();
-			if (key1 == 27)//°´ESCÖØĞÂ¿ªÊ¼
+			if (key1 == 27)//æŒ‰ESCé‡æ–°å¼€å§‹
 				replay();
-			else if (key1 == 'z')//°´z»ÚÆå
+			else if (key1 == 'z')//æŒ‰zæ‚”æ£‹
 			{
-				if (reback->back != NULL)//ÉÏÒ»¸ö¼ÇÂ¼²»ÊÇ¿ÕÊ±
+				if (reback->back != NULL)//ä¸Šä¸€ä¸ªè®°å½•ä¸æ˜¯ç©ºæ—¶
 				{
-					backrecord();//»ÚÆå
-					if (model[1] == 2)//µ±ÈË»úÊ±
-						backrecord();//ÔÙ»ÚÒ»²½Æå
+					backrecord();//æ‚”æ£‹
+					if (model[1] == 2)//å½“äººæœºæ—¶
+						backrecord();//å†æ‚”ä¸€æ­¥æ£‹
 					printboard();
 				}
 			}
-			else if (key1 <= 'o'&&key1 >= 'a')//µÚÒ»¸öÊäÈëÊÇaµ½oÖĞµÄÄ³¸ö×ÖÄ¸
+			else if (key1 <= 'o'&&key1 >= 'a')//ç¬¬ä¸€ä¸ªè¾“å…¥æ˜¯aåˆ°oä¸­çš„æŸä¸ªå­—æ¯
 			{
 				printf("%1c", key1);
 			A: key2 = getch();
-				if ((key2 >= '1'&&key2 <= '9') || (key2 >= 'a'&&key2 <= 'f'))//µÚ¶ş¸öÊäÈëÊÇ1µ½9»òÕßaµ½f
+				if ((key2 >= '1'&&key2 <= '9') || (key2 >= 'a'&&key2 <= 'f'))//ç¬¬äºŒä¸ªè¾“å…¥æ˜¯1åˆ°9æˆ–è€…aåˆ°f
 				{
 					printf("%c", key2);
 #ifndef WIN32
-					if ((key3 = getch()) != '\r')//µÚÈı¸öÊäÈë²»ÊÇ»Ø³µÔò¼ÌĞøÊäÈë
+					if ((key3 = getch()) != '\r')//ç¬¬ä¸‰ä¸ªè¾“å…¥ä¸æ˜¯å›è½¦åˆ™ç»§ç»­è¾“å…¥
 #else
-					if ((key3 = getch()) != '\n')//µÚÈı¸öÊäÈë²»ÊÇ»Ø³µÔò¼ÌĞøÊäÈë
+					if ((key3 = getch()) != '\n')//ç¬¬ä¸‰ä¸ªè¾“å…¥ä¸æ˜¯å›è½¦åˆ™ç»§ç»­è¾“å…¥
 #endif
 					{
-						if (key2 == '1')//Ö»ÓĞµ±µÚ¶ş¸öÊäÈëÊÇ1²Å¼ÌĞøÊäÈë
+						if (key2 == '1')//åªæœ‰å½“ç¬¬äºŒä¸ªè¾“å…¥æ˜¯1æ‰ç»§ç»­è¾“å…¥
 						{
 							printf("%c", key3);
 #ifndef WIN32
-							while (getch() == '\r')//ÊäÈëµÚÈı¸ö×Ö·ûºó£¬Ö»ÓĞµ±ÔÙÊäÈë»Ø³µ²Å¼ÌĞøÔËĞĞÏÂÈ¥
+							while (getch() == '\r')//è¾“å…¥ç¬¬ä¸‰ä¸ªå­—ç¬¦åï¼Œåªæœ‰å½“å†è¾“å…¥å›è½¦æ‰ç»§ç»­è¿è¡Œä¸‹å»
 #else
-							while (getch() == '\n')//ÊäÈëµÚÈı¸ö×Ö·ûºó£¬Ö»ÓĞµ±ÔÙÊäÈë»Ø³µ²Å¼ÌĞøÔËĞĞÏÂÈ¥
+							while (getch() == '\n')//è¾“å…¥ç¬¬ä¸‰ä¸ªå­—ç¬¦åï¼Œåªæœ‰å½“å†è¾“å…¥å›è½¦æ‰ç»§ç»­è¿è¡Œä¸‹å»
 #endif
 								break;
 						}
 					}
 
-					//×ª»»key2£¬key3ÎªÊı×Ö
+					//è½¬æ¢key2ï¼Œkey3ä¸ºæ•°å­—
 
-					if (key2 <= 'f'&&key2 >= 'a')					//µ±ÊäÈëµÄÊÇaµ½f
+					if (key2 <= 'f'&&key2 >= 'a')					//å½“è¾“å…¥çš„æ˜¯aåˆ°f
 						num = key2 - 'a' + 10;
-					else if (key3 >= '0' && key3 <= '5'&&key2 == '1')//µ±ÊäÈëµÄÊÇ10µ½15
+					else if (key3 >= '0' && key3 <= '5'&&key2 == '1')//å½“è¾“å…¥çš„æ˜¯10åˆ°15
 						num = 10 * (key2 - '0') + (key3 - '0');
-					else											//µ±ÊäÈëµÄÊÇ1µ½9
+					else											//å½“è¾“å…¥çš„æ˜¯1åˆ°9
 						num = key2 - '0';
 
-					if (!board[key1 - 'a'][num - 1])				//µ±ÊäÈëµÄ¶ÔÓ¦Î»ÖÃÃ»ÓĞÂä×Ó
+					if (!board[key1 - 'a'][num - 1])				//å½“è¾“å…¥çš„å¯¹åº”ä½ç½®æ²¡æœ‰è½å­
 					{
-						Addrecord(key1 - 'a', num - 1);	//Ìí¼ÓĞĞÆå¼ÇÂ¼
+						Addrecord(key1 - 'a', num - 1);	//æ·»åŠ è¡Œæ£‹è®°å½•
 						if (model[3]==1)
-							jinshou();//½ûÊÖÅĞ¶Ï
-						win(cursor.x, cursor.y);	//ÅĞ¶ÏÊ¤¸º
-						if (model[1] == 2)			//µ±ÈË»úÄ£Ê½
+							jinshou();//ç¦æ‰‹åˆ¤æ–­
+						win(cursor.x, cursor.y);	//åˆ¤æ–­èƒœè´Ÿ
+						if (model[1] == 2)			//å½“äººæœºæ¨¡å¼
 						{
-							mainsuanfa();			//µ÷ÓÃËã·¨µçÄÔÏÂÒ»²½Æå
-							win(cursor.x, cursor.y);		//ÅĞ¶ÏÊ¤¸º
+							mainsuanfa();			//è°ƒç”¨ç®—æ³•ç”µè„‘ä¸‹ä¸€æ­¥æ£‹
+							win(cursor.x, cursor.y);		//åˆ¤æ–­èƒœè´Ÿ
 							printboard();
 						}
-						else		//µ±ÈËÈËÄ£Ê½
+						else		//å½“äººäººæ¨¡å¼
 							printboard();
 					}
 				}
-				else goto A;				//µ±µÚ¶ş¸öÊäÈë²»·ûºÏÒªÇóÔòÖØĞÂÊäÈë
+				else goto A;				//å½“ç¬¬äºŒä¸ªè¾“å…¥ä¸ç¬¦åˆè¦æ±‚åˆ™é‡æ–°è¾“å…¥
 			}
 
 		}
@@ -124,9 +124,9 @@ void move()//Âä×Ó
 	}
 }
 
-void modelchoose(void)//Ä£Ê½Ñ¡Ôñ
+void modelchoose(void)//æ¨¡å¼é€‰æ‹©
 {
-	W:printf("°´1¿ªÊ¼ĞÂÓÎÏ·\n°´2¼ÓÔØÆåÆ×\n°´3²é¿´°ïÖú\n°´ESCÍË³ö³ÌĞò\n");
+	W:printf("æŒ‰1å¼€å§‹æ–°æ¸¸æˆ\næŒ‰2åŠ è½½æ£‹è°±\næŒ‰3æŸ¥çœ‹å¸®åŠ©\næŒ‰ESCé€€å‡ºç¨‹åº\n");
 	while (model[0] != 1 && model[0] != 2&& model[0]!=3 && model[0]!=-21)
 	{
 		model[0] = getch() - '0';
@@ -176,7 +176,7 @@ void modelchoose(void)//Ä£Ê½Ñ¡Ôñ
 	}
 	if (model[0] == 2)
 	{
-	A:	printf("ÊäÈëÎÄ¼şÃû(Àı: qipu 2015-1-1 1-1-1.txt)\n");
+	A:	printf("è¾“å…¥æ–‡ä»¶å(ä¾‹: qipu 2015-1-1 1-1-1.txt)\n");
 		char tmpname[50];
 		scanf("%[^\n]", &tmpname);
 		strcat(filename, "record/");
@@ -190,7 +190,7 @@ void modelchoose(void)//Ä£Ê½Ñ¡Ôñ
 			getchar();
 			memset(filename, 0, sizeof(filename));
 			int t = 0;
-			printf("ÎÄ¼ş²»´æÔÚ\n°´1ÖØĞÂÊäÈëÎÄ¼şÃû\n°´2¿ªÊ¼ĞÂÓÎÏ·\n");
+			printf("æ–‡ä»¶ä¸å­˜åœ¨\næŒ‰1é‡æ–°è¾“å…¥æ–‡ä»¶å\næŒ‰2å¼€å§‹æ–°æ¸¸æˆ\n");
 			while (t != 1 && t != 2)
 			{
 				t = getch() - '0';
@@ -206,7 +206,7 @@ void modelchoose(void)//Ä£Ê½Ñ¡Ôñ
 		}
 		else
 			fclose(file);
-		printf("°´1¿ªÊ¼ÈËÈË¶ÔÕ½\n°´2¿ªÊ¼ÈË»ú¶ÔÕ½\n°´ESC»Øµ½ÉÏÒ»²ã\n");
+		printf("æŒ‰1å¼€å§‹äººäººå¯¹æˆ˜\næŒ‰2å¼€å§‹äººæœºå¯¹æˆ˜\næŒ‰ESCå›åˆ°ä¸Šä¸€å±‚\n");
 		while (model[1] != 1 && model[1] != 2 && model[1] != 27 - '0')
 		{
 			model[1] = getch() - '0';
@@ -224,7 +224,7 @@ void modelchoose(void)//Ä£Ê½Ñ¡Ôñ
 
 	if (model[0] == 1)
 	{
-	B:	printf("°´1¿ªÊ¼ÈËÈË¶ÔÕ½\n°´2¿ªÊ¼ÈË»ú¶ÔÕ½\n°´3¿ªÊ¼»ú»ú¶ÔÕ½(²âÊÔÄ£Ê½)\n°´ESC»Øµ½ÉÏÒ»²ã\n");
+	B:	printf("æŒ‰1å¼€å§‹äººäººå¯¹æˆ˜\næŒ‰2å¼€å§‹äººæœºå¯¹æˆ˜\næŒ‰3å¼€å§‹æœºæœºå¯¹æˆ˜(æµ‹è¯•æ¨¡å¼)\næŒ‰ESCå›åˆ°ä¸Šä¸€å±‚\n");
 		while (model[1] != 1 && model[1] != 2 && model[1] != 3 && model[1] != 27 - '0')
 		{
 			model[1] = getch() - '0';
@@ -240,7 +240,7 @@ void modelchoose(void)//Ä£Ê½Ñ¡Ôñ
 		}
 		if (model[1] == 2)
 		{
-			printf("°´1Ñ¡ÔñºÚ·½\n°´2Ñ¡Ôñ°×·½\n°´ESC»Øµ½ÉÏÒ»²ã\n");
+			printf("æŒ‰1é€‰æ‹©é»‘æ–¹\næŒ‰2é€‰æ‹©ç™½æ–¹\næŒ‰ESCå›åˆ°ä¸Šä¸€å±‚\n");
 			while (model[2] != 1 && model[2] != 2 && model[2] != 27 - '0')
 			{
 				model[2] = getch() - '0';
@@ -258,15 +258,15 @@ void modelchoose(void)//Ä£Ê½Ñ¡Ôñ
 		else if (model[1] == 3)
 		{
 #ifndef WIN32
-			printf("Ï£ÍûµçÄÔ¶à¾ÃÏÂÒ»²½Æå(s)\n");
+			printf("å¸Œæœ›ç”µè„‘å¤šä¹…ä¸‹ä¸€æ­¥æ£‹(s)\n");
 			scanf("%d", &sleeptime);
 #else
-			printf("Ï£ÍûµçÄÔ¶à¾ÃÏÂÒ»²½Æå(ms)\n");
+			printf("å¸Œæœ›ç”µè„‘å¤šä¹…ä¸‹ä¸€æ­¥æ£‹(ms)\n");
 			scanf("%d", &sleeptime);
 #endif
 		}
 	}
-	printf("°´1Ñ¡ÔñºÚ·½½ûÊÖ\n°´2²»½ûÊÖ\n");
+	printf("æŒ‰1é€‰æ‹©é»‘æ–¹ç¦æ‰‹\næŒ‰2ä¸ç¦æ‰‹\n");
 	while (model[3] != 1 && model[3] != 2)
 	{
 		model[3] = getch() - '0';
@@ -274,85 +274,85 @@ void modelchoose(void)//Ä£Ê½Ñ¡Ôñ
 	printf("%d\n", model[3]);
 }
 
-void win(int a, int b)//ÅĞ¶ÏÊ¤¸º
+void win(int a, int b)//åˆ¤æ–­èƒœè´Ÿ
 {
-	if (iswin(a, b))//Èô»ñÊ¤								
+	if (iswin(a, b))//è‹¥è·èƒœ								
 	{
-		if (turn(Round) == 1)//ÅĞ¶ÏÄÄ·½»ñÊ¤
+		if (turn(Round) == 1)//åˆ¤æ–­å“ªæ–¹è·èƒœ
 		{
 			printboard();
-			printf("ºÚ·½Ê¤Àû");
+			printf("é»‘æ–¹èƒœåˆ©");
 		}
 		else
 		{
 			printboard();
-			printf("°×·½Ê¤Àû");
+			printf("ç™½æ–¹èƒœåˆ©");
 		}
-		replay();//ÖØĞÂ¿ªÊ¼ÓÎÏ·
+		replay();//é‡æ–°å¼€å§‹æ¸¸æˆ
 	}
-	Round++;//·ñÔò»ØºÏÊı¼Ó1
+	Round++;//å¦åˆ™å›åˆæ•°åŠ 1
 }
 
-int iswin(int a, int b)//ÅĞ¶ÏÊ¤¸º(a,bÎª×ø±ê)
+int iswin(int a, int b)//åˆ¤æ–­èƒœè´Ÿ(a,bä¸ºåæ ‡)
 {
 	int w = 1, x = 1, y = 1, z = 1;
 	int	i;
 	int k = turn(Round);
-	for (i = 1; i<5; i++)if (b + i<MAXIUM&&board[a][b + i] == k)w++; else break;//ÏòÏÂ¼ì²é
-	for (i = 1; i<5; i++)if (b - i >= 0 && board[a][b - i] == k)w++; else break;//ÏòÉÏ¼ì²é
+	for (i = 1; i<5; i++)if (b + i<MAXIUM&&board[a][b + i] == k)w++; else break;//å‘ä¸‹æ£€æŸ¥
+	for (i = 1; i<5; i++)if (b - i >= 0 && board[a][b - i] == k)w++; else break;//å‘ä¸Šæ£€æŸ¥
 	if (w >= 5)return 1;
 
-	for (i = 1; i<5; i++)if (a + i<MAXIUM&&board[a + i][b] == k)x++; else break;//ÏòÓÒ¼ì²é
-	for (i = 1; i<5; i++)if (a - i >= 0 && board[a - i][b] == k)x++; else break;//Ïò×ó¼ì²é
+	for (i = 1; i<5; i++)if (a + i<MAXIUM&&board[a + i][b] == k)x++; else break;//å‘å³æ£€æŸ¥
+	for (i = 1; i<5; i++)if (a - i >= 0 && board[a - i][b] == k)x++; else break;//å‘å·¦æ£€æŸ¥
 	if (x >= 5)return 1;
 
-	for (i = 1; i<5; i++)if (a + i<MAXIUM&&b + i<MAXIUM&&board[a + i][b + i] == k)y++; else break;//ÏòÓÒÏÂ¼ì²é
-	for (i = 1; i<5; i++)if (a - i >= 0 && b - i >= 0 && board[a - i][b - i] == k)y++; else break;//Ïò×óÉÏ¼ì²é
+	for (i = 1; i<5; i++)if (a + i<MAXIUM&&b + i<MAXIUM&&board[a + i][b + i] == k)y++; else break;//å‘å³ä¸‹æ£€æŸ¥
+	for (i = 1; i<5; i++)if (a - i >= 0 && b - i >= 0 && board[a - i][b - i] == k)y++; else break;//å‘å·¦ä¸Šæ£€æŸ¥
 	if (y >= 5)return 1;
 
-	for (i = 1; i<5; i++)if (a + i<MAXIUM&&b - i >= 0 && board[a + i][b - i] == k)z++; else break;//ÏòÓÒÉÏ¼ì²é
-	for (i = 1; i<5; i++)if (a - i >= 0 && b + i<MAXIUM&&board[a - i][b + i] == k)z++; else break;//Ïò×óÏÂ¼ì²é
+	for (i = 1; i<5; i++)if (a + i<MAXIUM&&b - i >= 0 && board[a + i][b - i] == k)z++; else break;//å‘å³ä¸Šæ£€æŸ¥
+	for (i = 1; i<5; i++)if (a - i >= 0 && b + i<MAXIUM&&board[a - i][b + i] == k)z++; else break;//å‘å·¦ä¸‹æ£€æŸ¥
 	if (z >= 5)return 1;
 
-	return 0;//ÈôÃ»ÓĞ¼ì²éµ½ÎåÁ¬£¬Ôò·µ»Ø0,±íÊ¾»¹Ã»´ï³ÉÊ¤Àû
+	return 0;//è‹¥æ²¡æœ‰æ£€æŸ¥åˆ°äº”è¿ï¼Œåˆ™è¿”å›0,è¡¨ç¤ºè¿˜æ²¡è¾¾æˆèƒœåˆ©
 }
 
-void replay()//ÖØĞÂ¿ªÊ¼ÓÎÏ·
+void replay()//é‡æ–°å¼€å§‹æ¸¸æˆ
 {
 	int i;
-	printf("\n°´1ÖØĞÂ¿ªÊ¼ÓÎÏ·      °´2ÍË³ö\n");
+	printf("\næŒ‰1é‡æ–°å¼€å§‹æ¸¸æˆ      æŒ‰2é€€å‡º\n");
 	int t=0;
 	while (t != 1 && t != 2)
 	{
 		t = getch() - '0';
 	}
 	printf("%d\n", t);
-	if (t == 1)//ÈôÖØĞÂ¿ªÊ¼
+	if (t == 1)//è‹¥é‡æ–°å¼€å§‹
 	{
-		memset(model, 0, sizeof(model));//Çå¿Õ±¾¾ÖÉèÖÃ
+		memset(model, 0, sizeof(model));//æ¸…ç©ºæœ¬å±€è®¾ç½®
 		memset(nowtime, 0, sizeof(nowtime));
 		memset(filename, 0, sizeof(filename));
 		for (i = 0; i < MAXIUM; i++)
-			memset(board[i], 0, sizeof(board[i]));//Çå¿ÕÆåÅÌ
-		initial();//½øÈë³õÊ¼»¯
+			memset(board[i], 0, sizeof(board[i]));//æ¸…ç©ºæ£‹ç›˜
+		initial();//è¿›å…¥åˆå§‹åŒ–
 	}
-	else{		//·ñÔòÌø³ö³ÌĞò
+	else{		//å¦åˆ™è·³å‡ºç¨‹åº
 		pause;
 		exit(0);
 	}
 }
 
-void backrecord()//»ÚÆå
+void backrecord()//æ‚”æ£‹
 {
 
-	board[reback->cursor.x][reback->cursor.y] = 0;//ÉÏÒ»¸öÂä×ÓÎ»ÖÃÇåÁã
-	reback = reback->back;//ÉÏÉÏ¸ö¼ÇÂ¼¸³Öµ¸øÉÏÒ»¸ö¼ÇÂ¼
-	renow->back = reback;//µ±Ç°¼ÇÂ¼µÄÉÏ¸ö¼ÇÂ¼Ö¸Ïò Ô­À´µÄÉÏÉÏ¸ö¼ÇÂ¼
-	reback->next = renow;//µ±Ç°¼ÇÂ¼µÄÉÏ¸ö¼ÇÂ¼(Ô­À´µÄÉÏÉÏ¸ö¼ÇÂ¼)µÄÏÂ¸ö¼ÇÂ¼Ö¸Ïòµ±Ç°¼ÇÂ¼ !@#$%^&*(   ·´ÕıÊÇÔÚ²Ù×÷¼ÇÂ¼Á´±í,ÈÆ¿ÚÁîËÆµÄ
-	Round--;//»ØºÏÊı¼õ1
-	del();//É¾³ıÎÄ¼şÖĞÏàÓ¦¼ÇÂ¼
+	board[reback->cursor.x][reback->cursor.y] = 0;//ä¸Šä¸€ä¸ªè½å­ä½ç½®æ¸…é›¶
+	reback = reback->back;//ä¸Šä¸Šä¸ªè®°å½•èµ‹å€¼ç»™ä¸Šä¸€ä¸ªè®°å½•
+	renow->back = reback;//å½“å‰è®°å½•çš„ä¸Šä¸ªè®°å½•æŒ‡å‘ åŸæ¥çš„ä¸Šä¸Šä¸ªè®°å½•
+	reback->next = renow;//å½“å‰è®°å½•çš„ä¸Šä¸ªè®°å½•(åŸæ¥çš„ä¸Šä¸Šä¸ªè®°å½•)çš„ä¸‹ä¸ªè®°å½•æŒ‡å‘å½“å‰è®°å½• !@#$%^&*(   åæ­£æ˜¯åœ¨æ“ä½œè®°å½•é“¾è¡¨,ç»•å£ä»¤ä¼¼çš„
+	Round--;//å›åˆæ•°å‡1
+	del();//åˆ é™¤æ–‡ä»¶ä¸­ç›¸åº”è®°å½•
 }
-//ÔËĞĞ²¿·Ö½áÊø
+//è¿è¡Œéƒ¨åˆ†ç»“æŸ
 
 char* join(char *s1, char *s2)  
 {  
