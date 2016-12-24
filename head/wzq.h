@@ -7,23 +7,23 @@
 #define MAXIUM 15
 
 #ifdef WIN32
-#include <conio.h>
-#define _printspace printf("                            ");
-#define sleep _sleep(sleeptime);
-#define cls system("cls");
+	#include <conio.h>
+	#define _printspace printf("                            ");
+	#define sleep _sleep(sleeptime);
+	#define cls system("cls");
 
 #else
-#include <unistd.h>  
-#include <getopt.h>
-#include <sys/select.h>
-#include <termios.h>  
-#include <fcntl.h>  
-#include <sys/ioctl.h>
-#define _printspace printf("             ");
-#define cls system("clear");
+	#include <unistd.h>  
+	#include <getopt.h>
+	#include <sys/select.h>
+	#include <termios.h>  
+	#include <fcntl.h>  
+	#include <sys/ioctl.h>
+	#define _printspace printf("             ");
+	#define cls system("clear");
 
-int getch(void);
-int kbhit(void);
+	int getch(void);
+	int kbhit(void);
 #endif
 
 FILE* file;//指向文件的指针
