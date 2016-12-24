@@ -7,8 +7,7 @@
 #define MAXIUM 15
 
 #ifdef WIN32
-#include "conio.h"
-#pragma warning(disable:4996)
+#include <conio.h>
 #define _printspace printf("                            ");
 #define sleep _sleep(sleeptime);
 #define cls system("cls");
