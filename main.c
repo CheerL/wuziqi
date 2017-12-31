@@ -3,7 +3,7 @@
 //main
 int main(void)
 {
-	initial();//初始化游戏
+	initial(); //初始化游戏
 	while (1)
 	{
 		move();
@@ -11,19 +11,20 @@ int main(void)
 	return 0;
 }
 
-void initial(void)//初始化游戏
+void initial(void) //初始化游戏
 {
 #ifndef WIN32
-	printf("\033[0m\033[37;1m");//设置颜色
+	printf("\033[0m\033[37;1m"); //设置颜色
 #else
-	system("title 五子棋");//设置标题
-	system("mode con cols=63 lines=34");//设置窗口大小
-	system("color E0");//设置颜色
+	system("title 五子棋");				 //设置标题
+	system("mode con cols=63 lines=34"); //设置窗口大小
+	system("color E0");					 //设置颜色
 #endif
 	cls;
-	xingqimodel=0;
+	xingqimodel = 0;
 	//初始化行棋记录相关部分
-	if (access("record", 0) == -1) {
+	if (access("record", 0) == -1)
+	{
 		mkdirs("record");
 	}
 	head = newrecord();
@@ -32,26 +33,31 @@ void initial(void)//初始化游戏
 	head->next = renow;
 	renow->back = head;
 	reback = renow->back;
-	Round = 1;//第一回合
-	modelchoose();//模式选择
+	Round = 1;	 //第一回合
+	modelchoose(); //模式选择
 
 	cls;
-	if (model[0] == 1)//若为新游戏
+	if (model[0] == 1) //若为新游戏
 	{
-		getfilename();//获取文件名
-		if (model[1] == 2 && model[2] == 2)	{ Addrecord(7, 7); Round++; printboard(); }//若为人机模式且玩家执白,直接打印棋盘
-		else	kaiju();//否则进入指定开局
+		getfilename(); //获取文件名
+		if (model[1] == 2 && model[2] == 2)
+		{
+			Addrecord(7, 7);
+			Round++;
+			printboard();
+		} //若为人机模式且玩家执白,直接打印棋盘
+		else
+			kaiju(); //否则进入指定开局
 	}
-	else if (model[0] == 2)//若加载游戏,进入读棋谱模式
+	else if (model[0] == 2) //若加载游戏,进入读棋谱模式
 		readqipu();
 	if (model[1] != 3)
 		xingqimodel = 1;
 	printf("开始游戏");
-	
 }
 
 #ifndef WIN32
-int kbhit(void)//当有键按下返回1,否则返回0,检测是否有按键
+int kbhit(void) //当有键按下返回1,否则返回0,检测是否有按键
 {
 	struct termios oldt, newt;
 	int ch;
@@ -73,7 +79,8 @@ int kbhit(void)//当有键按下返回1,否则返回0,检测是否有按键
 	return 0;
 }
 
-int getch(void) {  //类似getchar,从输入读一个字符,不用按回车,且不会显示在屏幕上
+int getch(void)
+{ //类似getchar,从输入读一个字符,不用按回车,且不会显示在屏幕上
 	//比getchar,scanf更及时,可以按下就做出反应,且不输入也不耽误程序运行
 	//我用于操作控制,如回放控制,悔棋等,其他所有输入任务也几乎由它承担
 	//后加判断,如果输入符合要求,则printf在屏幕,且进入下一步,否则不显示,继续输入到符合要求为止
@@ -86,7 +93,8 @@ int getch(void) {  //类似getchar,从输入读一个字符,不用按回车,且�
 	if (tcsetattr(fd, TCSANOW, &tm) < 0)
 		return -1;
 	c = fgetc(stdin);
-	if (kbhit()){
+	if (kbhit())
+	{
 		c += getch();
 	}
 	if (tcsetattr(fd, TCSANOW, &tm_old) < 0)

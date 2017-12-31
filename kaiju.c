@@ -37,7 +37,7 @@ void kaiju(void)
 				key3[1] = getchar() - '0';
 				if (key3[1] >= 0)
 					key3[0] = key3[0] * 10 + key3[1];
-				if (key3[0] > 13 || key3[0] < 1 || (key2 != 'i'&&key2 != 'd'))//若不是要求的输入
+				if (key3[0] > 13 || key3[0] < 1 || (key2 != 'i' && key2 != 'd')) //若不是要求的输入
 				{
 					printboard();
 					printf(" 输入有误");
@@ -57,14 +57,14 @@ void kaiju(void)
 					}
 				}
 				if (key2 == 'i')
-					return ikaiju(key3[0]);//进入斜指开局的选择
+					return ikaiju(key3[0]); //进入斜指开局的选择
 				if (key2 == 'd')
-					return dkaiju(key3[0]);//进入直指开局的选择
+					return dkaiju(key3[0]); //进入直指开局的选择
 			}
 #ifdef WIN32
-			else if (key1 == '\r')//若退出
+			else if (key1 == '\r') //若退出
 #else
-			else if (key1 == '\n')//若退出
+			else if (key1 == '\n') //若退出
 #endif
 			{
 				printboard();
@@ -74,7 +74,7 @@ void kaiju(void)
 	}
 }
 
-void ikaiju(int a)//斜指开局
+void ikaiju(int a) //斜指开局
 {
 	Round = Round + 1;
 	board[7][7] = 1;
@@ -90,11 +90,11 @@ void ikaiju(int a)//斜指开局
 	else if (a = 13)
 		board[5][5] = 1;
 	printboard();
-	change();//进入三手互换
+	change(); //进入三手互换
 	printboard();
 }
 
-void dkaiju(int a)//直指开局
+void dkaiju(int a) //直指开局
 {
 	Round = Round + 1;
 	board[7][7] = 1;
@@ -110,12 +110,11 @@ void dkaiju(int a)//直指开局
 	else if (a > 10 && a <= 13)
 		board[6 + (a - 10)][5] = 1;
 	printboard();
-	change();//进入三手互换
+	change(); //进入三手互换
 	printboard();
-
 }
 
-void change(void)//三手互换
+void change(void) //三手互换
 {
 	char key[2];
 #ifndef WIN32
@@ -149,15 +148,16 @@ void change(void)//三手互换
 				if ((key[1] = getch()) != '\n')
 #endif
 					printf("%c", key[1]);
-				else break;
+				else
+					break;
 
-				if (key[0] == 'h'&&key[1] == 'h')//若输入了hh
+				if (key[0] == 'h' && key[1] == 'h') //若输入了hh
 				{
-					Round = Round + 1;//白方切换到黑方
+					Round = Round + 1; //白方切换到黑方
 					break;
 				}
 			}
-			else//不合要求则跳出
+			else //不合要求则跳出
 				break;
 		}
 	}

@@ -3,15 +3,15 @@
 //算法部分
 int san, si;
 
-void mainsuanfa(void)//电脑下棋算法
+void mainsuanfa(void) //电脑下棋算法
 {
-	if (Round == 1)//第一回合直接下h8
+	if (Round == 1) //第一回合直接下h8
 		Addrecord(7, 7);
-	else if (Round == 2)//第二回合
+	else if (Round == 2) //第二回合
 	{
-		if (board[7][7] == 0)//若h8无字子,下到h8
+		if (board[7][7] == 0) //若h8无字子,下到h8
 			Addrecord(7, 7);
-		else				//有子则下到i9
+		else //有子则下到i9
 			Addrecord(8, 8);
 	}
 	else
@@ -26,36 +26,36 @@ void mainsuanfa(void)//电脑下棋算法
 		则Best[bestnum]为能让自己得分最高同时对方得分最低的落子位置,在相应位置落子并退出;
 		(本来是可以用相同的方式继续判断求更准确的最好位置,但是偷懒用随机选了.)
 		*/
-		srand((unsigned int)time(NULL));//随机函数
+		srand((unsigned int)time(NULL)); //随机函数
 		int i, j;
 		int s, t;
-		int q = 0, w = 0;//计数器
-		int now[3] = { 0, 0 ,0};//当前得分
-		int best[3] = { -1000000, -1000000, -1000000 };//当前最好得分 (初始化很 低 的分数方便覆盖)
-		int fbest = 100000000;//对方最好得分中最低分  (初始化很 高 的分数方便覆盖)
-		int Best[255][2];//存最好位置的数组,Best[i][0]为横坐标,Best[i][1]为纵坐标
-		int daixuan[255];//待选数组
+		int q = 0, w = 0;							  //计数器
+		int now[3] = {0, 0, 0};						  //当前得分
+		int best[3] = {-1000000, -1000000, -1000000}; //当前最好得分 (初始化很 低 的分数方便覆盖)
+		int fbest = 100000000;						  //对方最好得分中最低分  (初始化很 高 的分数方便覆盖)
+		int Best[255][2];							  //存最好位置的数组,Best[i][0]为横坐标,Best[i][1]为纵坐标
+		int daixuan[255];							  //待选数组
 		int bestnum;
-		int k = turn(Round);//回合判断
+		int k = turn(Round); //回合判断
 
-		for (i = 0; i < MAXIUM; i++)//取遍棋盘
+		for (i = 0; i < MAXIUM; i++) //取遍棋盘
 			for (j = 0; j < MAXIUM; j++)
 			{
-				if (board[i][j] == 0 || (board[i][j] == 3&&k==2))//若可以下子
+				if (board[i][j] == 0 || (board[i][j] == 3 && k == 2)) //若可以下子
 				{
-					now[0] = getscore(i, j, k);//打分
-					if (best[0] < now[0])//若当前得分比最好得分高,替代
+					now[0] = getscore(i, j, k); //打分
+					if (best[0] < now[0])		//若当前得分比最好得分高,替代
 					{
 						best[0] = now[0];
 						Best[0][0] = i;
 						Best[0][1] = j;
-						w = 1;				//计数器清零
+						w = 1; //计数器清零
 					}
-					else if (best[0] == now[0])//若当前得分比等于最好得分,增加
+					else if (best[0] == now[0]) //若当前得分比等于最好得分,增加
 					{
 						Best[w][0] = i;
 						Best[w][1] = j;
-						w++;				//计数器加1
+						w++; //计数器加1
 					}
 				}
 			}
@@ -64,15 +64,15 @@ void mainsuanfa(void)//电脑下棋算法
 			printf("平局\n");
 			return replay();
 		}
-		for (q = 0; q < w; q++)//对w个最好位置进行选择
+		for (q = 0; q < w; q++) //对w个最好位置进行选择
 		{
-			board[Best[q][0]][Best[q][1]] = k;//假设在相应位置落子
-			for (s = 0; s < MAXIUM; s++)//取遍棋盘
+			board[Best[q][0]][Best[q][1]] = k; //假设在相应位置落子
+			for (s = 0; s < MAXIUM; s++)	   //取遍棋盘
 				for (t = 0; t < MAXIUM; t++)
 				{
-					if (board[s][t] == 0 || (board[s][t] == 3 && k == 2))//若可以下子
+					if (board[s][t] == 0 || (board[s][t] == 3 && k == 2)) //若可以下子
 					{
-						now[1] = getscore(s, t, 3 - k);//打分
+						now[1] = getscore(s, t, 3 - k); //打分
 						if (best[1] <= now[1])
 						{
 							board[s][t] = 3 - k;
@@ -94,29 +94,29 @@ void mainsuanfa(void)//电脑下棋算法
 					}
 				}
 
-			if (fbest > best[1])//判断对方最高得分是否最低,若是,替代
+			if (fbest > best[1]) //判断对方最高得分是否最低,若是,替代
 			{
 				fbest = best[1];
-				daixuan[0] = q;//将该位置覆盖为待选数组的第一个
-				i = 1;//计数器清零
+				daixuan[0] = q; //将该位置覆盖为待选数组的第一个
+				i = 1;			//计数器清零
 			}
-			else if (fbest == best[1])//若等于最低得分
-				daixuan[i++] = q;//加入待选数组,同时计数器加1
+			else if (fbest == best[1]) //若等于最低得分
+				daixuan[i++] = q;	  //加入待选数组,同时计数器加1
 
-			board[Best[q][0]][Best[q][1]] = 0;//将假设下的子去掉
+			board[Best[q][0]][Best[q][1]] = 0; //将假设下的子去掉
 		}
-		if (i)//若i大于0,即不止一个最佳位置,随机选择一个
+		if (i) //若i大于0,即不止一个最佳位置,随机选择一个
 			bestnum = (int)(rand() % i);
-		else//若只有一个
+		else //若只有一个
 			bestnum = 0;
 
-		Addrecord(Best[bestnum][0], Best[bestnum][1]);//添加行棋记录
+		Addrecord(Best[bestnum][0], Best[bestnum][1]); //添加行棋记录
 		if (model[3] == 1)
-			jinshou();//禁手判断
+			jinshou(); //禁手判断
 	}
 }
 
-int getscore(int i, int j, int k)//判分函数,i,j为坐标,k为回合判断的值(黑方为1,白方为2)
+int getscore(int i, int j, int k) //判分函数,i,j为坐标,k为回合判断的值(黑方为1,白方为2)
 {
 	/*
 	形成5连为胜,每个子可以成为5连组合的第1个子,第2个子,……,第5个子(横向为例,+表示当前子,+----,-+---,……,----+);
@@ -124,30 +124,32 @@ int getscore(int i, int j, int k)//判分函数,i,j为坐标,k为回合判断的
 	每个子的得分为 对每个己方5连组合的贡献的得分和+中断对方五连组合的得分和;
 	*/
 
-	int n = 0;//得分
-	int count = 0;//当前统计的5连组合中自己子的个数
-	int ncount = 0;//当前统计的5连组合中对方子的个数
+	int n = 0;		//得分
+	int count = 0;  //当前统计的5连组合中自己子的个数
+	int ncount = 0; //当前统计的5连组合中对方子的个数
 	int t, p;
-	for (p = 0; p < 5; p++)//向上下(p确定5连组合的位置,p越大组合越靠下)
+	for (p = 0; p < 5; p++) //向上下(p确定5连组合的位置,p越大组合越靠下)
 	{
-		if (j - p < 0)//若最低位置已近低于棋盘下界,跳出循环,统计其他方向的得分
+		if (j - p < 0) //若最低位置已近低于棋盘下界,跳出循环,统计其他方向的得分
 			break;
-		else if (j - p + 4 >= MAXIUM)//若最高位置高于棋盘的上界,忽略后续部分,p直接加1,统计位置低一些的组合的得分
+		else if (j - p + 4 >= MAXIUM) //若最高位置高于棋盘的上界,忽略后续部分,p直接加1,统计位置低一些的组合的得分
 			continue;
-		else//位置正常
+		else //位置正常
 		{
-			for (t = 0; t < 5; t++)//统计五连组合中的每个子
+			for (t = 0; t < 5; t++) //统计五连组合中的每个子
 			{
-				if (board[i][j - p + t] == k)	count++;//若为己方的
-				else if (board[i][j - p + t] == 3 - k || board[i][j - p + t] == 3)	ncount++;//若为对方的
+				if (board[i][j - p + t] == k)
+					count++; //若为己方的
+				else if (board[i][j - p + t] == 3 - k || board[i][j - p + t] == 3)
+					ncount++; //若为对方的
 			}
-			n += jiafen(count, ncount);//当前分数加上对己方的得分
-			n += njiafen(count, ncount);//当前分数加上终结对方的得分
-			count = ncount = 0;//计数器清零
+			n += jiafen(count, ncount);  //当前分数加上对己方的得分
+			n += njiafen(count, ncount); //当前分数加上终结对方的得分
+			count = ncount = 0;			 //计数器清零
 		}
 	}
 
-	for (p = 0; p < 5; p++)//向左右
+	for (p = 0; p < 5; p++) //向左右
 	{
 		if (i - p < 0)
 			break;
@@ -157,8 +159,10 @@ int getscore(int i, int j, int k)//判分函数,i,j为坐标,k为回合判断的
 		{
 			for (t = 0; t < 5; t++)
 			{
-				if (board[i - p + t][j] == k)	count++;
-				else if (board[i - p + t][j] == 3 - k || board[i][j - p + t] == 3)	 ncount++;
+				if (board[i - p + t][j] == k)
+					count++;
+				else if (board[i - p + t][j] == 3 - k || board[i][j - p + t] == 3)
+					ncount++;
 			}
 			n += jiafen(count, ncount);
 			n += njiafen(count, ncount);
@@ -166,7 +170,7 @@ int getscore(int i, int j, int k)//判分函数,i,j为坐标,k为回合判断的
 		}
 	}
 
-	for (p = 0; p < 5; p++)//向左下右上
+	for (p = 0; p < 5; p++) //向左下右上
 	{
 		if (j - p < 0 || i - p < 0)
 			break;
@@ -176,8 +180,10 @@ int getscore(int i, int j, int k)//判分函数,i,j为坐标,k为回合判断的
 		{
 			for (t = 0; t < 5; t++)
 			{
-				if (board[i - p + t][j - p + t] == k)	count++;
-				else if (board[i - p + t][j - p + t] == 3 - k || board[i][j - p + t] == 3)	 ncount++;
+				if (board[i - p + t][j - p + t] == k)
+					count++;
+				else if (board[i - p + t][j - p + t] == 3 - k || board[i][j - p + t] == 3)
+					ncount++;
 			}
 			n += jiafen(count, ncount);
 			n += njiafen(count, ncount);
@@ -185,18 +191,20 @@ int getscore(int i, int j, int k)//判分函数,i,j为坐标,k为回合判断的
 		}
 	}
 
-	for (p = 0; p < 5; p++)//向左下右上
+	for (p = 0; p < 5; p++) //向左下右上
 	{
 		if (j + p >= MAXIUM || i - p < 0)
 			break;
-		else if (j + p - 4 <0 || i - p + 4 >= MAXIUM)
+		else if (j + p - 4 < 0 || i - p + 4 >= MAXIUM)
 			continue;
 		else
 		{
-			for (t = 0; t < 5; t++)//向左上右下
+			for (t = 0; t < 5; t++) //向左上右下
 			{
-				if (board[i - p + t][j + p - t] == k)	count++;
-				if (board[i - p + t][j + p - t] == 3 - k || board[i][j - p + t] == 3)	 ncount++;
+				if (board[i - p + t][j + p - t] == k)
+					count++;
+				if (board[i - p + t][j + p - t] == 3 - k || board[i][j - p + t] == 3)
+					ncount++;
 			}
 
 			n += jiafen(count, ncount);
@@ -204,7 +212,7 @@ int getscore(int i, int j, int k)//判分函数,i,j为坐标,k为回合判断的
 			count = ncount = 0;
 		}
 	}
-	if (n < 5000)//若分数很低时,考虑落子位置,给予一定的分数,落子越中间分数越高
+	if (n < 5000) //若分数很低时,考虑落子位置,给予一定的分数,落子越中间分数越高
 	{
 		if (i <= 7)
 			n += i + 1;
@@ -215,41 +223,63 @@ int getscore(int i, int j, int k)//判分函数,i,j为坐标,k为回合判断的
 		else
 			n += MAXIUM - j;
 	}
-	return n;//返回得分
+	return n; //返回得分
 }
 
-int jiafen(int n, int m)//对己方的得分
+int jiafen(int n, int m) //对己方的得分
 {
-	int p = 0;//分数
-	if (m == 0 && n != 0)//当5连组合中没有对方的子,且己方有子(若己方无子得0分)
+	int p = 0;			  //分数
+	if (m == 0 && n != 0) //当5连组合中没有对方的子,且己方有子(若己方无子得0分)
 	{
-		switch (n){//子越多分数越高
-		case 4: p = 9999999; break;
-		case 3: p = 99999; break;
-		case 2: p = 999; break;
-		case 1: p = 99; break;
-		default: p = 0; break;
+		switch (n)
+		{ //子越多分数越高
+		case 4:
+			p = 9999999;
+			break;
+		case 3:
+			p = 99999;
+			break;
+		case 2:
+			p = 999;
+			break;
+		case 1:
+			p = 99;
+			break;
+		default:
+			p = 0;
+			break;
 		}
 	}
-	return p;//返回得分
+	return p; //返回得分
 }
 
-int njiafen(int n, int m)//终结对方的得分
+int njiafen(int n, int m) //终结对方的得分
 {
 	int p = 0;
-	if (n == 0 && m != 0)//当5连组合中有对方的子,且没有己方的子,
-		//考虑这种5连组合的时候,不用想是否两头都堵住了,只要有一个己方的子,
-		//该组合对方就不可能成5,只能在其他组合中找机会.
+	if (n == 0 && m != 0) //当5连组合中有对方的子,且没有己方的子,
+						  //考虑这种5连组合的时候,不用想是否两头都堵住了,只要有一个己方的子,
+						  //该组合对方就不可能成5,只能在其他组合中找机会.
 	{
-		switch (m){
-		case 4: p = 8888888; break;
-		case 3: p = 88888; break;
-		case 2: p = 888; break;
-		case 1: p = 8; break;
-		default: p = 0; break;
+		switch (m)
+		{
+		case 4:
+			p = 8888888;
+			break;
+		case 3:
+			p = 88888;
+			break;
+		case 2:
+			p = 888;
+			break;
+		case 1:
+			p = 8;
+			break;
+		default:
+			p = 0;
+			break;
 		}
 	}
-	return p;//返回得分
+	return p; //返回得分
 }
 
 void jinshou()
@@ -275,12 +305,16 @@ void qimingzihaomafan(int n, int m)
 {
 	if (m == 0 && n != 0)
 	{
-		switch (n){
-		case 3: 
-			si++; break;
-		case 2: 
-			san++; break;
-		default:  break;
+		switch (n)
+		{
+		case 3:
+			si++;
+			break;
+		case 2:
+			san++;
+			break;
+		default:
+			break;
 		}
 	}
 }
@@ -289,36 +323,38 @@ int getjin(int i, int j, int k)
 {
 	int huosan = 0;
 	int huosi = 0;
-	int count = 0;//当前统计的5连组合中自己子的个数
-	int ncount = 0;//当前统计的5连组合中对方子的个数
+	int count = 0;  //当前统计的5连组合中自己子的个数
+	int ncount = 0; //当前统计的5连组合中对方子的个数
 	int t, p;
 	san = 0;
 	si = 0;
-	for (p = 0; p < 5; p++)//向上下(p确定5连组合的位置,p越大组合越靠下)
+	for (p = 0; p < 5; p++) //向上下(p确定5连组合的位置,p越大组合越靠下)
 	{
-		if (j - p < 0)//若最低位置已近低于棋盘下界,跳出循环,统计其他方向的得分
+		if (j - p < 0) //若最低位置已近低于棋盘下界,跳出循环,统计其他方向的得分
 			break;
-		else if (j - p + 4 >= MAXIUM)//若最高位置高于棋盘的上界,忽略后续部分,p直接加1,统计位置低一些的组合的得分
+		else if (j - p + 4 >= MAXIUM) //若最高位置高于棋盘的上界,忽略后续部分,p直接加1,统计位置低一些的组合的得分
 			continue;
-		else//位置正常
+		else //位置正常
 		{
-			for (t = 0; t < 5; t++)//统计五连组合中的每个子
+			for (t = 0; t < 5; t++) //统计五连组合中的每个子
 			{
-				if (board[i][j - p + t] == k)	count++;//若为己方的
-				else if (board[i][j - p + t] == 3 - k)	ncount++;//若为对方的
+				if (board[i][j - p + t] == k)
+					count++; //若为己方的
+				else if (board[i][j - p + t] == 3 - k)
+					ncount++; //若为对方的
 			}
-			qimingzihaomafan(count,ncount);
+			qimingzihaomafan(count, ncount);
 			count = 0;
 			ncount = 0;
 		}
 	}
 	if (san > 1)
 		huosan++;
-	if (si>0)
+	if (si > 0)
 		huosi++;
 	san = 0;
 	si = 0;
-	for (p = 0; p < 5; p++)//向左右
+	for (p = 0; p < 5; p++) //向左右
 	{
 		if (i - p < 0)
 			break;
@@ -328,8 +364,10 @@ int getjin(int i, int j, int k)
 		{
 			for (t = 0; t < 5; t++)
 			{
-				if (board[i - p + t][j] == k)	count++;
-				else if (board[i - p + t][j] == 3 - k)	 ncount++;
+				if (board[i - p + t][j] == k)
+					count++;
+				else if (board[i - p + t][j] == 3 - k)
+					ncount++;
 			}
 			qimingzihaomafan(count, ncount);
 			count = 0;
@@ -338,11 +376,11 @@ int getjin(int i, int j, int k)
 	}
 	if (san > 1)
 		huosan++;
-	if (si>0)
+	if (si > 0)
 		huosi++;
 	san = 0;
 	si = 0;
-	for (p = 0; p < 5; p++)//向左下右上
+	for (p = 0; p < 5; p++) //向左下右上
 	{
 		if (j - p < 0 || i - p < 0)
 			break;
@@ -352,8 +390,10 @@ int getjin(int i, int j, int k)
 		{
 			for (t = 0; t < 5; t++)
 			{
-				if (board[i - p + t][j - p + t] == k)	count++;
-				else if (board[i - p + t][j - p + t] == 3 - k)	 ncount++;
+				if (board[i - p + t][j - p + t] == k)
+					count++;
+				else if (board[i - p + t][j - p + t] == 3 - k)
+					ncount++;
 			}
 			qimingzihaomafan(count, ncount);
 			count = 0;
@@ -362,22 +402,24 @@ int getjin(int i, int j, int k)
 	}
 	if (san > 1)
 		huosan++;
-	if (si>0)
+	if (si > 0)
 		huosi++;
 	san = 0;
 	si = 0;
-	for (p = 0; p < 5; p++)//向左下右上
+	for (p = 0; p < 5; p++) //向左下右上
 	{
 		if (j + p >= MAXIUM || i - p < 0)
 			break;
-		else if (j + p - 4 <0 || i - p + 4 >= MAXIUM)
+		else if (j + p - 4 < 0 || i - p + 4 >= MAXIUM)
 			continue;
 		else
 		{
-			for (t = 0; t < 5; t++)//向左上右下
+			for (t = 0; t < 5; t++) //向左上右下
 			{
-				if (board[i - p + t][j + p - t] == k)	count++;
-				if (board[i - p + t][j + p - t] == 3 - k)	 ncount++;
+				if (board[i - p + t][j + p - t] == k)
+					count++;
+				if (board[i - p + t][j + p - t] == 3 - k)
+					ncount++;
 			}
 			qimingzihaomafan(count, ncount);
 			count = 0;
@@ -386,11 +428,11 @@ int getjin(int i, int j, int k)
 	}
 	if (san > 1)
 		huosan++;
-	if (si>0)
+	if (si > 0)
 		huosi++;
 	san = 0;
 	si = 0;
-	if ( huosan > 1 || huosi > 1)
+	if (huosan > 1 || huosi > 1)
 		return 3;
 	else
 		return 0;
