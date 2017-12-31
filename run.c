@@ -335,6 +335,12 @@ void replay()//重新开始游戏
 	}
 	else{		//否则跳出程序
 		pause;
+		#ifndef WIN32
+			printf("\033[0m");
+		#else
+			system("color 7");
+			cls
+		#endif
 		exit(0);
 	}
 }

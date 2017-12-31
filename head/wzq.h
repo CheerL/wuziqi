@@ -8,6 +8,9 @@
 
 #ifdef WIN32
 	#include <conio.h>
+	#include <io.h>
+	#include <direct.h>
+	#define mkdirs(path) _mkdir(path)
 	#define _printspace printf("                            ");
 	#define sleep _sleep(sleeptime);
 	#define cls system("cls");
@@ -16,9 +19,13 @@
 	#include <unistd.h>  
 	#include <getopt.h>
 	#include <sys/select.h>
-	#include <termios.h>  
-	#include <fcntl.h>  
+	#include <termios.h>
+	#include <fcntl.h>
 	#include <sys/ioctl.h>
+	#include <unistd.h>
+	#include <sys/types.h>
+	#include <sys/stat.h>
+	#define mkdirs(path) mkdir(path, 0777)
 	#define _printspace printf("             ");
 	#define cls system("clear");
 

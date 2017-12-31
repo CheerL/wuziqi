@@ -8,6 +8,7 @@ int main(void)
 	{
 		move();
 	}
+	return 0;
 }
 
 void initial(void)//初始化游戏
