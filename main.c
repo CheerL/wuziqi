@@ -23,8 +23,8 @@ void initial(void)//初始化游戏
 	xingqimodel=0;
 	//初始化行棋记录相关部分
 	if (access("record", 0) == -1) {
-        mkdirs("record");
-    }
+		mkdirs("record");
+	}
 	head = newrecord();
 	renow = newrecord();
 	reback = newrecord();

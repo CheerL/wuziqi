@@ -20,7 +20,7 @@
 	#include <getopt.h>
 	#include <sys/select.h>
 	#include <termios.h>
-	#include <fcntl.h>  
+	#include <fcntl.h>
 	#include <sys/ioctl.h>
 	#include <unistd.h>
     #include <sys/types.h>
@@ -33,39 +33,39 @@
 	int kbhit(void);
 #endif
 
-FILE* file;//Ö¸ÏòÎÄ¼þµÄÖ¸Õë
-int board[MAXIUM][MAXIUM];//ÆåÅÌ
-int Round;//»ØºÏÊý
-int model[4];//ÓÎÏ·Ä£Ê½
-int sleeptime;//»ú»ú¶ÔÕ½ÔÝÍ£Ê±¼ä
-char filename[50];//ÎÄ¼þÃû
-char nowtime[50];//µ±Ç°Ê±¼ä
-int readmodel;//¶Á¼ÇÂ¼Ä£Ê½
-int xingqimodel;//ÐÐÆåÄ£Ê½
+FILE* file;//Ö¸ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
+int board[MAXIUM][MAXIUM];//ï¿½ï¿½ï¿½ï¿½
+int Round;//ï¿½Øºï¿½ï¿½ï¿½
+int model[4];//ï¿½ï¿½Ï·Ä£Ê½
+int sleeptime;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ½ï¿½ï¿½Í£Ê±ï¿½ï¿½
+char filename[50];//ï¿½Ä¼ï¿½ï¿½ï¿½
+char nowtime[50];//ï¿½ï¿½Ç°Ê±ï¿½ï¿½
+int readmodel;//ï¿½ï¿½ï¿½ï¿½Â¼Ä£Ê½
+int xingqimodel;//ï¿½ï¿½ï¿½ï¿½Ä£Ê½
 
-struct cursor{//×ø±ê½á¹¹
+struct cursor{//ï¿½ï¿½ï¿½ï¿½á¹¹
 	int x, y;
 };
-struct cursor cursor;//Âä×ÓµÄÎ»ÖÃ
+struct cursor cursor;//ï¿½ï¿½ï¿½Óµï¿½Î»ï¿½ï¿½
 
-typedef struct record{//ÐÐÆå¼ÇÂ¼
-	struct cursor cursor;//×ø±ê½á¹¹
-	struct record* next;//Ö¸ÏòÏÂÒ»¸ö¼ÇÂ¼µÄÖ¸Õë
-	struct record* back;//Ö¸ÏòÉÏÒ»¸ö¼ÇÂ¼µÄÖ¸Õë
+typedef struct record{//ï¿½ï¿½ï¿½ï¿½ï¿½Â¼
+	struct cursor cursor;//ï¿½ï¿½ï¿½ï¿½á¹¹
+	struct record* next;//Ö¸ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½Ö¸ï¿½ï¿½
+	struct record* back;//Ö¸ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½Ö¸ï¿½ï¿½
 }Record;
 
-struct record* head;//Á´±íÍ·
-struct record* renow;//µ±Ç°¼ÇÂ¼
-struct record* reback;//ÉÏÒ»¸ö¼ÇÂ¼
+struct record* head;//ï¿½ï¿½ï¿½ï¿½Í·
+struct record* renow;//ï¿½ï¿½Ç°ï¿½ï¿½Â¼
+struct record* reback;//ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Â¼
 
 
-#define pause printf("°´ÈÎÒâ¼ü¼ÌÐø\n");getch(); 
-#define _printn printf("\n");//ÎÞÁÄµÄºê¶¨Òå
-#define _turns  if (Round % 2) printf("ºÚ·½»ØºÏ");else  printf("°×·½»ØºÏ");//ºÚ°×·½»ØºÏÅÐ¶Ï
-#define getdate memset(nowtime,0,sizeof(nowtime));getnowtime(); printf("%s",nowtime)//»ñÈ¡µ±Ç°Ê±¼ä
-//memsetÓÃÓÚÇå¿ÕÊý×é getnowtimeºóÃæÔÙËµÃ÷
+#define pause printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\n");getch(); 
+#define _printn printf("\n");//ï¿½ï¿½ï¿½ÄµÄºê¶¨ï¿½ï¿½
+#define _turns  if (Round % 2) printf("ï¿½Ú·ï¿½ï¿½Øºï¿½");else  printf("ï¿½×·ï¿½ï¿½Øºï¿½");//ï¿½Ú°×·ï¿½ï¿½Øºï¿½ï¿½Ð¶ï¿½
+#define getdate memset(nowtime,0,sizeof(nowtime));getnowtime(); printf("%s",nowtime)//ï¿½ï¿½È¡ï¿½ï¿½Ç°Ê±ï¿½ï¿½
+//memsetï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ getnowtimeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½
 
-//º¯ÊýÉùÃ÷²¿·Ö
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void backrecord();
 void printboard();
 void readqipu(void);
@@ -102,5 +102,5 @@ void tishi();
 void jinshou();
 int getjin(int i, int j, int k);
 void qimingzihaofan(int n,int m);
-//º¯ÊýÉùÃ÷²¿·Ö½áÊø
-//Í·ÎÄ¼þ²¿·Ö½áÊø
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½
+//Í·ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½
