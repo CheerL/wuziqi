@@ -1,29 +1,29 @@
 #include "head/wzq.h"
 
-//¼ÇÂ¼´¦Àí²¿·Ö(Á´±í½á¹¹)
-struct record* newrecord()//´´ÔìĞÂ¼ÇÂ¼½Úµã
+//è®°å½•å¤„ç†éƒ¨åˆ†(é“¾è¡¨ç»“æ„)
+struct record* newrecord()//åˆ›é€ æ–°è®°å½•èŠ‚ç‚¹
 {
-	struct record* r = (struct record*)malloc(sizeof(struct record));//ÉêÇëÒ»¸ö½Úµã¶ÔÏó
-	r->next = NULL;//¸øÓèÇ°ºó½Úµã³õÖµNULL
+	struct record* r = (struct record*)malloc(sizeof(struct record));//ç”³è¯·ä¸€ä¸ªèŠ‚ç‚¹å¯¹è±¡
+	r->next = NULL;//ç»™äºˆå‰åèŠ‚ç‚¹åˆå€¼NULL
 	r->back = NULL;
-	return r;//·µ»Ø¼ÇÂ¼Ö¸Õë
+	return r;//è¿”å›è®°å½•æŒ‡é’ˆ
 }
 
-void Addrecord(int i, int j)//Ìí¼Ó¼ÇÂ¼
+void Addrecord(int i, int j)//æ·»åŠ è®°å½•
 {
-	renow->cursor.x = i;//¼ÇÂ¼×ø±ê
+	renow->cursor.x = i;//è®°å½•åæ ‡
 	renow->cursor.y = j;
 
-	if (!readmodel)//µ±²»ÊÇ¶ÁÆåÆ×Ä£Ê½,Ğ´ÈëÎÄ¼ş
+	if (!readmodel)//å½“ä¸æ˜¯è¯»æ£‹è°±æ¨¡å¼,å†™å…¥æ–‡ä»¶
 		dofile();
-	board[i][j] = turn(Round);//ÏàÓ¦Î»ÖÃÂä×Ó
+	board[i][j] = turn(Round);//ç›¸åº”ä½ç½®è½å­
 	cursor.x = i;
 	cursor.y = j;
 
-	renow->next = newrecord();//´´½¨ÏÂÒ»¸ö¼ÇÂ¼½Úµã
+	renow->next = newrecord();//åˆ›å»ºä¸‹ä¸€ä¸ªè®°å½•èŠ‚ç‚¹
 
-	reback = renow;//µ±Ç°¼ÇÂ¼ÍÆÖÁÏÂÒ»¸ö¼ÇÂ¼½Úµã	
+	reback = renow;//å½“å‰è®°å½•æ¨è‡³ä¸‹ä¸€ä¸ªè®°å½•èŠ‚ç‚¹	
 	renow = renow->next;
 	renow->back = reback;
 }
-//¼ÇÂ¼´¦Àí²¿·Ö½áÊø
+//è®°å½•å¤„ç†éƒ¨åˆ†ç»“æŸ
