@@ -1,57 +1,57 @@
 #include "head/wzq.h"
 
-//文件处理部分
-void getfilename()//获得文件名
+//�ļ���������
+void getfilename()//����ļ���
 {
-	getnowtime();//获得时间字符串
+	getnowtime();//���ʱ���ַ���
 	strcat(filename, "record/qipu ");
 	strcat(filename, nowtime);
-	strcat(filename, ".txt");//得到完整文件名 例如 qipu 2015-1-1 1-1-1.txt
+	strcat(filename, ".txt");//�õ������ļ��� ���� qipu 2015-1-1 1-1-1.txt
 }
 
-void dofile()//把记录写入文件
+void dofile()//�Ѽ�¼д���ļ�
 {
-	file = fopen(filename, "at+");//以可读写打开文件,若文件存在则打开,不存在则创建(filename为前面得到的文件名)
-	if (file != NULL)//若成功打开文件,否则什么也不做
+	file = fopen(filename, "at+");//�Կɶ�д���ļ�,���ļ��������,�������򴴽�(filenameΪǰ��õ����ļ���)
+	if (file != NULL)//���ɹ����ļ�,����ʲôҲ����
 	{
-		char a[50] = "\n";//字符串a为将要写入文件的内容,初始化
+		char a[50] = "\n";//�ַ���aΪ��Ҫд���ļ�������,��ʼ��
 		char r[3];
 		char x[3], y[3];
-		strcat(a, iitoa(Round, r, 10));//加入回合数
+		strcat(a, iitoa(Round, r, 10));//����غ���
 		strcat(a, "\t");
-		strcat(a, iitoa(renow->cursor.x + 1, x, 10));//加入横坐标
+		strcat(a, iitoa(renow->cursor.x + 1, x, 10));//���������
 		strcat(a, " ");
-		strcat(a, iitoa(renow->cursor.y + 1, y, 10));//加入纵坐标
+		strcat(a, iitoa(renow->cursor.y + 1, y, 10));//����������
 		strcat(a, " ");
 		strcat(a, " ");
 		strcat(a, "\t");
-		strcat(a, nowtime);//加入时间
-		fwrite(a, strlen(a), 1, file);//写入文件
-		fclose(file);//关闭文件
+		strcat(a, nowtime);//����ʱ��
+		fwrite(a, strlen(a), 1, file);//д���ļ�
+		fclose(file);//�ر��ļ�
 	}
 }
 
-void del()//悔棋时删除文件最后一行
+void del()//����ʱɾ���ļ����һ��
 {
-	FILE *fin, *fout;//文件指针
-	//计数器	
+	FILE *fin, *fout;//�ļ�ָ��
+	//������	
 	int c;
 	int count = 0;
 	int ncount = 0;
 
-	fin = fopen(filename, "r");//以只读打开文件(当前记录文件)
-	//数出有多少行
+	fin = fopen(filename, "r");//��ֻ�����ļ�(��ǰ��¼�ļ�)
+	//�����ж�����
 	while (1) {
 		c = fgetc(fin);
 		if (EOF == c) break;
 		if ('\n' == c) count++;
 	}
 
-	fclose(fin);//关闭
+	fclose(fin);//�ر�
 
-	fin = fopen(filename, "r");//重新打开文件
-	fout = fopen("t.tmp", "w");//打开一个临时文件
-	//将当前记录文件的内容全写到临时文件,除了最后一行
+	fin = fopen(filename, "r");//���´��ļ�
+	fout = fopen("t.tmp", "w");//��һ����ʱ�ļ�
+	//����ǰ��¼�ļ�������ȫд����ʱ�ļ�,�������һ��
 	while (1)
 	{
 		c = fgetc(fin);
@@ -63,22 +63,22 @@ void del()//悔棋时删除文件最后一行
 		}
 		fputc(c, fout);
 	}
-	fclose(fin);//关掉两个文件
+	fclose(fin);//�ص������ļ�
 	fclose(fout);
-	remove(filename);//删除记录文件
-	rename("t.tmp", filename);//把临时文件重命名为记录文件原来的名字
+	remove(filename);//ɾ����¼�ļ�
+	rename("t.tmp", filename);//����ʱ�ļ�������Ϊ��¼�ļ�ԭ��������
 }
 
-void readqipu()//读棋谱模式
+void readqipu()//������ģʽ
 {
-	readmodel = 1;//改模式参数
+	readmodel = 1;//��ģʽ����
 	char c;
 	int count = 0;
 	int ncount = 0;
 	char x[2], y[2];
 	int i = 0, j = 0;
-	file = fopen(filename, "r");//打开文件
-	//以下为找到文件每行记录下的横纵坐标,记到字符串里
+	file = fopen(filename, "r");//���ļ�
+	//����Ϊ�ҵ��ļ�ÿ�м�¼�µĺ�������,�ǵ��ַ�����
 	while ((c = fgetc(file)) != EOF)
 	{
 		if (c == '	')
@@ -100,50 +100,50 @@ void readqipu()//读棋谱模式
 				y[j++] = c;
 			else if (ncount == 2)
 			{
-				if (i == 1)	i = x[0] - '0';//把坐标字符串里的内容改成int
+				if (i == 1)	i = x[0] - '0';//�������ַ���������ݸĳ�int
 				else i = 10 + (int)x[1] - 48;
 				if (j == 1)	j = y[0] - '0';
 				else j = 10 + (int)y[1] - 48;
-				Addrecord(i - 1, j - 1);//添加记录
-				Round++;//回合数加1
+				Addrecord(i - 1, j - 1);//���Ӽ�¼
+				Round++;//�غ�����1
 			}
 		}
 	}
-	//至此读完文件,也把记录链表和相应的棋盘内容完成了
-	fclose(file);//关掉文件
-	readmodel = 0;//退出读棋谱模式
+	//���˶����ļ�,Ҳ�Ѽ�¼��������Ӧ���������������
+	fclose(file);//�ص��ļ�
+	readmodel = 0;//�˳�������ģʽ
 	printboard();
-	huifang();//进入回放模式
+	huifang();//����ط�ģʽ
 }
 
-void huifang()//回放
+void huifang()//�ط�
 {
-	char tempname[50];//临时文件名,存储原来的文件名(当前记录文件文件名会被改变,最后会加上tmp)
+	char tempname[50];//��ʱ�ļ���,�洢ԭ�����ļ���(��ǰ��¼�ļ��ļ����ᱻ�ı�,�������tmp)
 	strcpy(tempname, filename);
 	strcat(filename, "tmp");
-	//回放控制
+	//�طſ���
 	while (1)
 	{
 		//getchar();
 		printboard();
 #ifdef WIN32
-		printf("\n          方向键控制回放,ESC退出回放并从当前开始游戏");
+		printf("\n          ��������ƻط�,ESC�˳��طŲ��ӵ�ǰ��ʼ��Ϸ");
 #else
-		printf("\n方向键控制回放,ESC退出回放并从当前开始游戏"); 	
+		printf("\n��������ƻط�,ESC�˳��طŲ��ӵ�ǰ��ʼ��Ϸ"); 	
 #endif	
-		if (huifangkongzhi())//进入回放控制
+		if (huifangkongzhi())//����طſ���
 			break;
 	}
 	printboard();
-	//把当前回放到的位置后的记录链表内容删去
+	//�ѵ�ǰ�طŵ���λ�ú�ļ�¼��������ɾȥ
 	reback = renow->back;
 	reback->next = newrecord();
 	renow = reback->next;
 	renow->back = reback;
-	//退到链表头,回合数改为1
+	//�˵�����ͷ,�غ�����Ϊ1
 	renow = head->next;
 	Round = 1;
-	//写入新文件,当当前记录下一个非空,把记录写进文件里,当前记录推进到下一个
+	//д�����ļ�,����ǰ��¼��һ���ǿ�,�Ѽ�¼д���ļ���,��ǰ��¼�ƽ�����һ��
 	while (renow->next != NULL)
 	{
 		dofile();
@@ -151,13 +151,13 @@ void huifang()//回放
 		Round++;
 	}
 
-	remove(tempname);//删除文件
-	rename(filename, tempname);//重命名文件
-	memset(filename, 0, sizeof(filename));//清空文件名
-	strcpy(filename, tempname);//改回原来的文件名
+	remove(tempname);//ɾ���ļ�
+	rename(filename, tempname);//�������ļ�
+	memset(filename, 0, sizeof(filename));//����ļ���
+	strcpy(filename, tempname);//�Ļ�ԭ�����ļ���
 }
 
-int huifangkongzhi()//回放控制
+int huifangkongzhi()//�طſ���
 {
 	int key1;
 	while (1)
@@ -170,29 +170,29 @@ int huifangkongzhi()//回放控制
 			case 27://ESC
 				return 1;
 #ifndef WIN32
-			case 183://上
-			case 186://左
+			case 183://��
+			case 186://��
 				if (renow->back->back != NULL)
 				{
-					renow = renow->back;//退到上一个记录
+					renow = renow->back;//�˵���һ����¼
 					board[renow->cursor.x][renow->cursor.y] = 0;
 					Round--;
 				}
 				else
 					goto A;
 				break;
-			case 184://下
-			case 185://右
+			case 184://��
+			case 185://��
 				if (renow->next != NULL)
 				{
 
 					board[renow->cursor.x][renow->cursor.y] = turn(Round);
-					renow = renow->next;//推到下一个记录
+					renow = renow->next;//�Ƶ���һ����¼
 					Round++;
 				}
 #else
-			case 72://上
-			case 75://左
+			case 72://��
+			case 75://��
 				if (renow->back->back != NULL)
 				{
 					renow = renow->back;
@@ -202,8 +202,8 @@ int huifangkongzhi()//回放控制
 				else
 					goto A;
 				break;
-			case 80://下
-			case 77://右
+			case 80://��
+			case 77://��
 				if (renow->next != NULL)
 				{
 
@@ -222,4 +222,4 @@ int huifangkongzhi()//回放控制
 		}
 	}
 }
-//文件处理部分结束
+//�ļ��������ֽ���

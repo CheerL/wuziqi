@@ -8,6 +8,9 @@
 
 #ifdef WIN32
 	#include <conio.h>
+	#include <io.h>
+    #include <direct.h>
+    #define mkdirs(path) _mkdir(path)
 	#define _printspace printf("                            ");
 	#define sleep _sleep(sleeptime);
 	#define cls system("cls");
@@ -16,9 +19,13 @@
 	#include <unistd.h>  
 	#include <getopt.h>
 	#include <sys/select.h>
-	#include <termios.h>  
+	#include <termios.h>
 	#include <fcntl.h>  
 	#include <sys/ioctl.h>
+	#include <unistd.h>
+    #include <sys/types.h>
+    #include <sys/stat.h>
+    #define mkdirs(path) mkdir(path, 0777)
 	#define _printspace printf("             ");
 	#define cls system("clear");
 
@@ -26,39 +33,39 @@
 	int kbhit(void);
 #endif
 
-FILE* file;//æŒ‡å‘æ–‡ä»¶çš„æŒ‡é’ˆ
-int board[MAXIUM][MAXIUM];//æ£‹ç›˜
-int Round;//å›åˆæ•°
-int model[4];//æ¸¸æˆæ¨¡å¼
-int sleeptime;//æœºæœºå¯¹æˆ˜æš‚åœæ—¶é—´
-char filename[50];//æ–‡ä»¶å
-char nowtime[50];//å½“å‰æ—¶é—´
-int readmodel;//è¯»è®°å½•æ¨¡å¼
-int xingqimodel;//è¡Œæ£‹æ¨¡å¼
+FILE* file;//Ö¸ÏòÎÄ¼şµÄÖ¸Õë
+int board[MAXIUM][MAXIUM];//ÆåÅÌ
+int Round;//»ØºÏÊı
+int model[4];//ÓÎÏ·Ä£Ê½
+int sleeptime;//»ú»ú¶ÔÕ½ÔİÍ£Ê±¼ä
+char filename[50];//ÎÄ¼şÃû
+char nowtime[50];//µ±Ç°Ê±¼ä
+int readmodel;//¶Á¼ÇÂ¼Ä£Ê½
+int xingqimodel;//ĞĞÆåÄ£Ê½
 
-struct cursor{//åæ ‡ç»“æ„
+struct cursor{//×ø±ê½á¹¹
 	int x, y;
 };
-struct cursor cursor;//è½å­çš„ä½ç½®
+struct cursor cursor;//Âä×ÓµÄÎ»ÖÃ
 
-typedef struct record{//è¡Œæ£‹è®°å½•
-	struct cursor cursor;//åæ ‡ç»“æ„
-	struct record* next;//æŒ‡å‘ä¸‹ä¸€ä¸ªè®°å½•çš„æŒ‡é’ˆ
-	struct record* back;//æŒ‡å‘ä¸Šä¸€ä¸ªè®°å½•çš„æŒ‡é’ˆ
+typedef struct record{//ĞĞÆå¼ÇÂ¼
+	struct cursor cursor;//×ø±ê½á¹¹
+	struct record* next;//Ö¸ÏòÏÂÒ»¸ö¼ÇÂ¼µÄÖ¸Õë
+	struct record* back;//Ö¸ÏòÉÏÒ»¸ö¼ÇÂ¼µÄÖ¸Õë
 }Record;
 
-struct record* head;//é“¾è¡¨å¤´
-struct record* renow;//å½“å‰è®°å½•
-struct record* reback;//ä¸Šä¸€ä¸ªè®°å½•
+struct record* head;//Á´±íÍ·
+struct record* renow;//µ±Ç°¼ÇÂ¼
+struct record* reback;//ÉÏÒ»¸ö¼ÇÂ¼
 
 
-#define pause printf("æŒ‰ä»»æ„é”®ç»§ç»­\n");getch(); 
-#define _printn printf("\n");//æ— èŠçš„å®å®šä¹‰
-#define _turns  if (Round % 2) printf("é»‘æ–¹å›åˆ");else  printf("ç™½æ–¹å›åˆ");//é»‘ç™½æ–¹å›åˆåˆ¤æ–­
-#define getdate memset(nowtime,0,sizeof(nowtime));getnowtime(); printf("%s",nowtime)//è·å–å½“å‰æ—¶é—´
-//memsetç”¨äºæ¸…ç©ºæ•°ç»„ getnowtimeåé¢å†è¯´æ˜
+#define pause printf("°´ÈÎÒâ¼ü¼ÌĞø\n");getch(); 
+#define _printn printf("\n");//ÎŞÁÄµÄºê¶¨Òå
+#define _turns  if (Round % 2) printf("ºÚ·½»ØºÏ");else  printf("°×·½»ØºÏ");//ºÚ°×·½»ØºÏÅĞ¶Ï
+#define getdate memset(nowtime,0,sizeof(nowtime));getnowtime(); printf("%s",nowtime)//»ñÈ¡µ±Ç°Ê±¼ä
+//memsetÓÃÓÚÇå¿ÕÊı×é getnowtimeºóÃæÔÙËµÃ÷
 
-//å‡½æ•°å£°æ˜éƒ¨åˆ†
+//º¯ÊıÉùÃ÷²¿·Ö
 void backrecord();
 void printboard();
 void readqipu(void);
@@ -95,5 +102,5 @@ void tishi();
 void jinshou();
 int getjin(int i, int j, int k);
 void qimingzihaofan(int n,int m);
-//å‡½æ•°å£°æ˜éƒ¨åˆ†ç»“æŸ
-//å¤´æ–‡ä»¶éƒ¨åˆ†ç»“æŸ
+//º¯ÊıÉùÃ÷²¿·Ö½áÊø
+//Í·ÎÄ¼ş²¿·Ö½áÊø

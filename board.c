@@ -1,76 +1,76 @@
 #include "head/wzq.h"
 
-//æ£‹ç›˜éƒ¨åˆ†
-char* getStyle(int i, int j)//è·å–åæ ‡å¯¹åº”ä½ç½®çš„å†…å®¹
+//ÆåÅÌ²¿·Ö
+char* getStyle(int i, int j)//»ñÈ¡×ø±ê¶ÔÓ¦Î»ÖÃµÄÄÚÈİ
 {
 #ifndef WIN32
 	if(!readmodel)	
 	{
 		if (i == reback->cursor.x&&j == reback->cursor.y)
 		{
-			if (board[i][j] == 1)//é»‘å­å½“å‰è½å­
+			if (board[i][j] == 1)//ºÚ×Óµ±Ç°Âä×Ó
 			{
 				if (i == 14)
-					return "\033[30mâ˜…\033[37;1m";
-				else//è¾¹ç¼˜ä½ç½®
+					return "\033[30m¡ï\033[37;1m";
+				else//±ßÔµÎ»ÖÃ
 				{
 					switch (j)
 					{
 					case 0:
 						;
 					case 14:
-						return "\033[30mâ˜…\033[37;1mâ”";
+						return "\033[30m¡ï\033[37;1m©¥";
 						break;
 					default:
-						return "\033[30mâ˜…\033[37;1mâ”€";
+						return "\033[30m¡ï\033[37;1m©¤";
 						break;
 					}
 				}
 			}
-			else//ç™½å­å½“å‰è½å­
+			else//°××Óµ±Ç°Âä×Ó
 			{
 				if (i == 14)
-					return "â˜…";
-				else//è¾¹ç¼˜ä½ç½®
+					return "¡ï";
+				else//±ßÔµÎ»ÖÃ
 				{
 					switch (j)
 					{
 					case 0:
 						;
 					case 14:
-						return "â˜…â”";
+						return "¡ï©¥";
 						break;
 					default:
-						return "â˜…â”€";
+						return "¡ï©¤";
 						break;
 					}
 				}
 			}
 		}
 	}
-	if (board[i][j] == 1)//1ä¸ºé»‘å­
+	if (board[i][j] == 1)//1ÎªºÚ×Ó
 	{
 		if (i == 14)
-			return "\033[30mâ—\033[37;1m";//"â—".å…¶ä»–ä¸ºé¢œè‰²è®¾ç½®
-		else//è¾¹ç¼˜ä½ç½®
+			return "\033[30m¡ñ\033[37;1m";//"¡ñ".ÆäËûÎªÑÕÉ«ÉèÖÃ
+		else//±ßÔµÎ»ÖÃ
 		{
 			switch (j)
 			{
 			case 0:
 				;
 			case 14:
-				return "\033[30mâ—\033[37;1mâ”";
+				return "\033[30m¡ñ\033[37;1m©¥";
 				break;
 			default:
-				return "\033[30mâ—\033[37;1mâ”€";
+				return "\033[30m¡ñ\033[37;1m©¤";
 				break;
 			}
 		}
 	}
-	else if (board[i][j] == 2)//2ä¸ºç™½å­
+	else if (board[i][j] == 2)//2Îª°××Ó
 	{
 		if (i == 14)
-			return "â—";
+			return "¡ñ";
 		else
 		{
 			switch (j)
@@ -78,10 +78,10 @@ char* getStyle(int i, int j)//è·å–åæ ‡å¯¹åº”ä½ç½®çš„å†…å®¹
 			case 0:
 				;
 			case 14:
-				return "â—â”";
+				return "¡ñ©¥";
 				break;
 			default:
-				return "â—â”€";
+				return "¡ñ©¤";
 				break;
 			}
 		}
@@ -89,18 +89,18 @@ char* getStyle(int i, int j)//è·å–åæ ‡å¯¹åº”ä½ç½®çš„å†…å®¹
 	else if (board[i][j] == 3)
 	{
 		if (i == 14)
-			return "â•³";
-		else//è¾¹ç¼˜ä½ç½®
+			return "¨w";
+		else//±ßÔµÎ»ÖÃ
 		{
 			switch (j)
 			{
 			case 0:
 				;
 			case 14:
-				return "â•³â”";
+				return "¨w©¥";
 				break;
 			default:
-				return "â•³â”€";
+				return "¨w©¤";
 				break;
 			}
 		}
@@ -110,50 +110,50 @@ char* getStyle(int i, int j)//è·å–åæ ‡å¯¹åº”ä½ç½®çš„å†…å®¹
 	{
 		if (i == reback->cursor.x&&j == reback->cursor.y)
 		{
-			if (board[i][j] == 1)//é»‘å­å½“å‰è½å­
+			if (board[i][j] == 1)//ºÚ×Óµ±Ç°Âä×Ó
 			{
 				if (i == 14)
-					return "â˜…";
-				else//è¾¹ç¼˜ä½ç½®
+					return "¡ï";
+				else//±ßÔµÎ»ÖÃ
 				{
 					switch (j)
 					{
 					case 0:
 						;
 					case 14:
-						return "â˜…â”";
+						return "¡ï©¥";
 						break;
 					default:
-						return "â˜…â”€";
+						return "¡ï©¤";
 						break;
 					}
 				}
 			}
-			else if(board[i][j] == 2)//ç™½å­å½“å‰è½å­
+			else if(board[i][j] == 2)//°××Óµ±Ç°Âä×Ó
 			{
 				if (i == 14)
-					return "â˜†";
-				else//è¾¹ç¼˜ä½ç½®
+					return "¡î";
+				else//±ßÔµÎ»ÖÃ
 				{
 					switch (j)
 					{
 					case 0:
 						;
 					case 14:
-						return "â˜†â”";
+						return "¡î©¥";
 						break;
 					default:
-						return "â˜†â”€";
+						return "¡î©¤";
 						break;
 					}
 				}
 			}
 		}
 	}
-	if (board[i][j] == 1)//1ä¸ºé»‘å­
+	if (board[i][j] == 1)//1ÎªºÚ×Ó
 	{
 		if (i == 14)
-			return "â—";
+			return "¡ñ";
 		else
 		{
 			switch (j)
@@ -161,29 +161,29 @@ char* getStyle(int i, int j)//è·å–åæ ‡å¯¹åº”ä½ç½®çš„å†…å®¹
 			case 0:
 				;
 			case 14:
-				return "â—â”";
+				return "¡ñ©¥";
 				break;
 			default:
-				return "â—â”€";
+				return "¡ñ©¤";
 				break;
 			}
 		}
 	}
-	else if (board[i][j] == 2)//2ä¸ºç™½å­
+	else if (board[i][j] == 2)//2Îª°××Ó
 	{
 		if (i == 14)
-			return "â—‹";
-		else//è¾¹ç¼˜ä½ç½®
+			return "¡ğ";
+		else//±ßÔµÎ»ÖÃ
 		{
 			switch (j)
 			{
 			case 0:
 				;
 			case 14:
-				return "â—‹â”";
+				return "¡ğ©¥";
 				break;
 			default:
-				return "â—‹â”€";
+				return "¡ğ©¤";
 				break;
 			}
 		}
@@ -191,111 +191,111 @@ char* getStyle(int i, int j)//è·å–åæ ‡å¯¹åº”ä½ç½®çš„å†…å®¹
 	else if (board[i][j] == 3)
 	{
 		if (i == 14)
-			return "â•³";
-		else//è¾¹ç¼˜ä½ç½®
+			return "¨w";
+		else//±ßÔµÎ»ÖÃ
 		{
 			switch (j)
 			{
 			case 0:
 				;
 			case 14:
-				return "â•³â”";
+				return "¨w©¥";
 				break;
 			default:
-				return "â•³â”€";
+				return "¨w©¤";
 				break;
 			}
 		}
 	}
 
 #endif
-	else if (board[i][j] == 0)//æœªè½å­çš„ä½ç½®
+	else if (board[i][j] == 0)//Î´Âä×ÓµÄÎ»ÖÃ
 	{
-		//è¾¹ç¼˜
+		//±ßÔµ
 		if (i == 0 && j == 0)
-			return "â”—â”";
+			return "©»©¥";
 		else if (i == MAXIUM - 1 && j == 0)
-			return "â”›";
+			return "©¿";
 		else if (i == MAXIUM - 1 && j == MAXIUM - 1)
-			return "â”“";
+			return "©·";
 		else if (i == 0 && j == MAXIUM - 1)
-			return "â”â”";
+			return "©³©¥";
 		else if (i == 0)
-			return "â” â”€";
+			return "©Ä©¤";
 		else if (i == MAXIUM - 1)
-			return "â”¨";
+			return "©Ì";
 		else if (j == 0)
-			return "â”·â”";
+			return "©Û©¥";
 		else if (j == MAXIUM - 1)
-			return "â”¯â”";
+			return "©Ó©¥";
 
-		return "â”¼â”€";//ä¸­é—´çš„ç©ºä½
+		return "©à©¤";//ÖĞ¼äµÄ¿ÕÎ»
 	}
 	return NULL;
 }
 
-void printboard()//æ‰“å°æ£‹ç›˜å‡½æ•°
+void printboard()//´òÓ¡ÆåÅÌº¯Êı
 {
 	cls;
 	int i, j;
 #ifndef WIN32
-	_printn//å®å®šä¹‰ æ¢è¡Œ
-	printf("%2d", MAXIUM);//ç¬¬ä¸€è¡Œ
+	_printn//ºê¶¨Òå »»ĞĞ
+	printf("%2d", MAXIUM);//µÚÒ»ĞĞ
 	for (i = 0; i < MAXIUM; i++) { printf(getStyle(i, 14)); }_printn
-		for (j = 13; j > 0; j--)//å…¶ä»–è¡Œ
+		for (j = 13; j > 0; j--)//ÆäËûĞĞ
 		{
 			printf("%2d", j + 1);
 			for (i = 0; i < MAXIUM; i++){ printf(getStyle(i, j)); }_printn
 		}
 
-	printf("%2d", 1);//æœ€åä¸€è¡Œ
+	printf("%2d", 1);//×îºóÒ»ĞĞ
 	for (i = 0; i < MAXIUM; i++) { printf(getStyle(i, 0)); }
 
-	_printn printf(" ");//å­—æ¯
+	_printn printf(" ");//×ÖÄ¸
 	for (i = 0; i < MAXIUM; i++) { printf("%2c", i + 'a'); }
 
-	_printn  //å›åˆä¿¡æ¯ _turnsä¸ºé»‘ç™½æ–¹åˆ¤æ–­ getdateä¸ºæ˜¾ç¤ºæ—¶é—´(è§æœ€å¼€å§‹å®å®šä¹‰)
+	_printn  //»ØºÏĞÅÏ¢ _turnsÎªºÚ°×·½ÅĞ¶Ï getdateÎªÏÔÊ¾Ê±¼ä(¼û×î¿ªÊ¼ºê¶¨Òå)
 		_turns printf("        "); getdate; _printn 
 	if(xingqimodel) tishi();
 	_printspace
 #else
-	printf("%2d", MAXIUM);//ç¬¬ä¸€è¡Œ
+	printf("%2d", MAXIUM);//µÚÒ»ĞĞ
 	for (i = 0; i < MAXIUM; i++) { printf(getStyle(i, 14)); }
-	printf("\n  â”ƒ");  for (i = 0; i<MAXIUM - 2; i++){ printf("  â”‚"); } printf("  â”ƒ\n");//ä¸­é—´çš„
-	for (j = 13; j > 0; j--)//å…¶ä»–è¡Œ
+	printf("\n  ©§");  for (i = 0; i<MAXIUM - 2; i++){ printf("  ©¦"); } printf("  ©§\n");//ÖĞ¼äµÄ
+	for (j = 13; j > 0; j--)//ÆäËûĞĞ
 	{
 		printf("%2d", j + 1);
 		for (i = 0; i < MAXIUM; i++){ printf(getStyle(i, j)); }
-		printf("\n  â”ƒ"); for (i = 0; i<MAXIUM - 2; i++){ printf("  â”‚"); } printf("  â”ƒ\n");//ä¸­é—´çš„
+		printf("\n  ©§"); for (i = 0; i<MAXIUM - 2; i++){ printf("  ©¦"); } printf("  ©§\n");//ÖĞ¼äµÄ
 	}
-	printf("%2d", 1);//æœ€åä¸€è¡Œ
+	printf("%2d", 1);//×îºóÒ»ĞĞ
 	for (i = 0; i < MAXIUM; i++) { printf(getStyle(i, 0)); }
 	_printn
-		for (i = 0; i < MAXIUM; i++) { printf("%4c", i + 'a'); }//å­—æ¯
-	_printn  printf("               "); _turns printf("           "); getdate; _printn//å›åˆä¿¡æ¯
+		for (i = 0; i < MAXIUM; i++) { printf("%4c", i + 'a'); }//×ÖÄ¸
+	_printn  printf("               "); _turns printf("           "); getdate; _printn//»ØºÏĞÅÏ¢
 	if(xingqimodel) tishi();
 	_printspace
 
 #endif
 }
 
-void getnowtime()//è·å¾—å½“å‰æ—¶é—´(å­—ç¬¦ä¸²å½¢å¼)
+void getnowtime()//»ñµÃµ±Ç°Ê±¼ä(×Ö·û´®ĞÎÊ½)
 {
 	time_t timep;
 	struct tm *p;
 	time(&timep);
 	p = gmtime(&timep);
 	char year[5], mon[3], day[3], hour[3], min[3], sec[3];
-	//ä»¥ä¸Šéƒ¨åˆ†è·å¾—ä¸€ä¸ªç»“æ„,é‡Œé¢æœ‰å½“å‰çš„ å¹´ æœˆ æ—¥ æ—¶ åˆ† ç§’ (int)(åº¦å¨˜æ•™çš„å‡½æ•°)
+	//ÒÔÉÏ²¿·Ö»ñµÃÒ»¸ö½á¹¹,ÀïÃæÓĞµ±Ç°µÄ Äê ÔÂ ÈÕ Ê± ·Ö Ãë (int)(¶ÈÄï½ÌµÄº¯Êı)
 
-	if ((p->tm_hour + 8) >= 24)//ä¸œå…«åŒº,å°æ—¶æ•°åŠ 8,è‹¥è¶…è¿‡24è¿›ä¸€å¤©
+	if ((p->tm_hour + 8) >= 24)//¶«°ËÇø,Ğ¡Ê±Êı¼Ó8,Èô³¬¹ı24½øÒ»Ìì
 	{
 		p->tm_hour -= 24;
 		p->tm_mday++;
 	}
 
-	strcat(nowtime, iitoa(1900 + p->tm_year, year, 10));//iitoa(a,b,c)ä¸ºæŠŠ æ•°å­—a åœ¨ cè¿›åˆ¶ ä¸‹è½¬åŒ–ä¸º å­—ç¬¦ä¸²b çš„å‡½æ•°
-	strcat(nowtime, "-");								//strcat(a,b)ä¸ºæŠŠ å­—ç¬¦ä¸²b çš„å†…å®¹åŠ åˆ° å­—ç¬¦ä¸²a æœ€åçš„å‡½æ•°
+	strcat(nowtime, iitoa(1900 + p->tm_year, year, 10));//iitoa(a,b,c)Îª°Ñ Êı×Öa ÔÚ c½øÖÆ ÏÂ×ª»¯Îª ×Ö·û´®b µÄº¯Êı
+	strcat(nowtime, "-");								//strcat(a,b)Îª°Ñ ×Ö·û´®b µÄÄÚÈİ¼Óµ½ ×Ö·û´®a ×îºóµÄº¯Êı
 	strcat(nowtime, iitoa(1 + p->tm_mon, mon, 10));
 	strcat(nowtime, "-");
 	strcat(nowtime, iitoa(p->tm_mday, day, 10));
@@ -304,15 +304,15 @@ void getnowtime()//è·å¾—å½“å‰æ—¶é—´(å­—ç¬¦ä¸²å½¢å¼)
 	strcat(nowtime, "-");
 	strcat(nowtime, iitoa(p->tm_min, min, 10));
 	strcat(nowtime, "-");
-	strcat(nowtime, iitoa(p->tm_sec, sec, 10));//å¾—åˆ°å®Œæ•´çš„æ—¶é—´å­—ç¬¦ä¸² å¦‚ 2015-1-1 1-1-1
+	strcat(nowtime, iitoa(p->tm_sec, sec, 10));//µÃµ½ÍêÕûµÄÊ±¼ä×Ö·û´® Èç 2015-1-1 1-1-1
 }
 
-char *iitoa(int num, char *str, int radix)//iitoa(a,b,c)ä¸ºæŠŠ æ•°å­—a åœ¨ cè¿›åˆ¶ ä¸‹è½¬åŒ–ä¸º å­—ç¬¦ä¸²b çš„å‡½æ•°(åº¦å¨˜åŠ 1)
+char *iitoa(int num, char *str, int radix)//iitoa(a,b,c)Îª°Ñ Êı×Öa ÔÚ c½øÖÆ ÏÂ×ª»¯Îª ×Ö·û´®b µÄº¯Êı(¶ÈÄï¼Ó1)
 {
 	char  string[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 	char* ptr = str;
-	int denom = 0;  //ä½™æ•°
+	int denom = 0;  //ÓàÊı
 	int count = -1;
 	int i;
 	int j;
@@ -347,9 +347,9 @@ char *iitoa(int num, char *str, int radix)//iitoa(a,b,c)ä¸ºæŠŠ æ•°å­—a åœ¨ cè¿›å
 void tishi()
 {
 #ifndef WIN32
-	printf("  è¾“å…¥åæ ‡åå›è½¦ä»¥è½å­  æŒ‰zæ‚”æ£‹\n") ;
+	printf("  ÊäÈë×ø±êºó»Ø³µÒÔÂä×Ó  °´z»ÚÆå\n") ;
 #else
-	printf("                  è¾“å…¥åæ ‡åå›è½¦ä»¥è½å­  æŒ‰zæ‚”æ£‹\n") ;
+	printf("                  ÊäÈë×ø±êºó»Ø³µÒÔÂä×Ó  °´z»ÚÆå\n") ;
 #endif
 }
-//æ£‹ç›˜éƒ¨åˆ†ç»“æŸ
+//ÆåÅÌ²¿·Ö½áÊø
