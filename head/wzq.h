@@ -11,7 +11,7 @@
 #include <direct.h>
 #define mkdirs(path) _mkdir(path)
 #define _printspace printf("                            ");
-#define sleep _sleep(sleeptime);
+#define sleep(sleeptime) _sleep(sleeptime);
 #define cls system("cls");
 
 #else

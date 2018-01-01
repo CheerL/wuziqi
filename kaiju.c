@@ -8,10 +8,7 @@ void kaiju(void)
 	char key2;
 	int key3[2];
 	if (model[1] == 3)
-	{
-		char c;
-		c = getchar();
-	}
+		getchar();
 #ifndef WIN32
 	printf("\n    ");
 	printf("输入  z+i/d+数字  指定开局");
@@ -87,7 +84,7 @@ void ikaiju(int a) //斜指开局
 		board[7][MAXIUM - a] = 1;
 	else if (a > 10 && a <= 12)
 		board[6][17 - a] = 1;
-	else if (a = 13)
+	else if (a == 13)
 		board[5][5] = 1;
 	printboard();
 	change(); //进入三手互换

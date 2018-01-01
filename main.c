@@ -16,6 +16,7 @@ void initial(void) //初始化游戏
 #ifndef WIN32
 	printf("\033[0m\033[37;1m"); //设置颜色
 #else
+	system("chcp 65001");
 	system("title 五子棋");				 //设置标题
 	system("mode con cols=63 lines=34"); //设置窗口大小
 	system("color E0");					 //设置颜色

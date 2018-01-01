@@ -182,7 +182,7 @@ W:
 	A:
 		printf("输入文件名(例: qipu 2015-1-1 1-1-1.txt)\n");
 		char tmpname[50];
-		scanf("%[^\n]", &tmpname);
+		scanf("%[^\n]", tmpname);
 		strcat(filename, "record/");
 		strcat(filename, tmpname);
 		if (strstr(tmpname, ".txt") == NULL)

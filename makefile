@@ -1,14 +1,17 @@
 SRCS = $(wildcard *.c)
-OBJS = $(SRCS:.c = .o)
+OBJS = $(patsubst %.c,%.o, $(SRCS))
 CC = gcc
 INCLUDES = -I /head
-CCFLAGS = -g -Wall -O0
+CCFLAGS = -g -Wall -Og
 
-wuziqi : $(OBJS)
-	$(CC) $^ -o $@ $(INCLUDES)
+all: main clean
+.PHONY:clean
+
+main : $(OBJS)
+	$(CC) $^ -o $@ $(INCLUDES) -g
 
 %.o : %.c
 	$(CC) -c $< $(CCFLAGS)
+
 clean:
 	rm *.o
-.PHONY:clean

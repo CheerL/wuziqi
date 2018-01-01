@@ -31,8 +31,8 @@ void mainsuanfa(void) //电脑下棋算法
 		int s, t;
 		int q = 0, w = 0;							  //计数器
 		int now[3] = {0, 0, 0};						  //当前得分
-		int best[3] = {-1000000, -1000000, -1000000}; //当前最好得分 (初始化很 低 的分数方便覆盖)
-		int fbest = 100000000;						  //对方最好得分中最低分  (初始化很 高 的分数方便覆盖)
+		int best[3] = {-1000000, -1000000, -1000000}; //当前最好得分 (初始化很低的分数方便覆盖)
+		int fbest = 100000000;						  //对方最好得分中最低分  (初始化很高的分数方便覆盖)
 		int Best[255][2];							  //存最好位置的数组,Best[i][0]为横坐标,Best[i][1]为纵坐标
 		int daixuan[255];							  //待选数组
 		int bestnum;
@@ -110,7 +110,7 @@ void mainsuanfa(void) //电脑下棋算法
 		else //若只有一个
 			bestnum = 0;
 
-		Addrecord(Best[bestnum][0], Best[bestnum][1]); //添加行棋记录
+		Addrecord(Best[daixuan[bestnum]][0], Best[daixuan[bestnum]][1]); //添加行棋记录
 		if (model[3] == 1)
 			jinshou(); //禁手判断
 	}
